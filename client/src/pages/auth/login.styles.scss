@@ -1,0 +1,23 @@
+.auth-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background: #fff;
+  padding: 5% 4% 4%;
+
+  .auth-img {
+    display: flex;
+    width: 45%;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .auth-form {
+    display: flex;
+    width: 55%;
+    justify-content: center;
+    // align-items: center;
+    flex-direction: column;
+    padding: 4% 10%;
+  }
+}

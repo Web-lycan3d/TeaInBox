@@ -1,0 +1,4 @@
+{
+    "mongoURI" : "mongodb+srv://root:abhi0317@demo.mb7pd.mongodb.net/teaInBox?retryWrites=true&w=majority",
+    "jwtSECRET" : "JWT123RET"
+}

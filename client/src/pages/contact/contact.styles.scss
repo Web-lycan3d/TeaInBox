@@ -1,0 +1,46 @@
+.contact-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background: #d3e1e1;
+  padding: 8% 4% 4%;
+
+  .contact-img {
+    display: flex;
+    width: 45%;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .contact-text {
+    display: flex;
+    width: 55%;
+    justify-content: center;
+    // align-items: center;
+    flex-direction: column;
+    padding: 4% 5%;
+
+    h1,
+    p,
+    .google-link {
+      color: rgb(156, 5, 5);
+      text-align: left;
+    }
+
+    p,
+    .google-link {
+      padding: 0.8rem 0;
+    }
+
+    .google-link {
+      letter-spacing: 1px;
+      font-size: 18px;
+      text-decoration: none;
+
+      &:hover {
+          text-decoration: underline;
+          color: #294d5d;
+      }
+    }
+  }
+}
