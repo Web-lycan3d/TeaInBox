@@ -1,9 +1,13 @@
 import React, { Fragment } from 'react'
 import { useForm } from 'react-hook-form'
-import {Link} from 'react-router-dom'
+import { Link , Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Typography } from '@material-ui/core'
+import PropTypes from 'prop-types'
+import { loginUser } from '../../redux/user/user.actions'
+
 
 import Form from '../form/form.component'
 import Input from '../inputField/Input.component'
@@ -11,18 +15,25 @@ import SubmitButton from '../formButton/SubmitButton.component'
 import './loginForm.styles.scss'
 
 const Schema = yup.object().shape({
-    email : yup.string().email("Email should have correct format").required("Email is required"),
+    email: yup.string().email("Email should have correct format").required("Email is required"),
     password: yup.string().required("Password is required")
 })
 
-const LoginForm = () => {
-    const { register, handleSubmit, formState : {errors} } = useForm({
+const LoginForm = ({ loginUser , isAuthenticated }) => {
+
+    const { register, handleSubmit, formState: { errors } } = useForm({
         mode: "onBlur",
         resolver: yupResolver(Schema)
     });
-    
-    const onSubmit = (data) => {
-        console.log(data);
+
+    const onSubmit = async data => {
+        const { email, password } = data;
+
+        loginUser({ email, password })
+    }
+
+    if(isAuthenticated) {
+        return <Redirect to="/" />
     }
     return (
         <Fragment>
@@ -51,4 +62,12 @@ const LoginForm = () => {
     )
 }
 
-export default LoginForm
+LoginForm.propTypes = {
+    loginUser: PropTypes.func.isRequired,
+}
+
+const mapStateToProps = (state) => ({
+    isAuthenticated : state.user.isAuthenticated
+})
+
+export default connect(mapStateToProps, { loginUser })(LoginForm)

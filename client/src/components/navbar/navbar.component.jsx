@@ -1,9 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
+import {logoutUser} from '../../redux/user/user.actions'
 import './navbar.styles.scss'
 
-const Navbar = () => {
+const Navbar = ({ user: { isAuthenticated, loading } , logoutUser }) => {
     return (
         <>
             <nav className="navbar">
@@ -21,12 +24,23 @@ const Navbar = () => {
                 <div className="nav-menu">
                     <Link to="#" className="nav-link">Teawear</Link>
                 </div>
-                <div className="nav-menu">
+                {!loading && isAuthenticated ? (<div className="nav-menu">
+                    <Link onClick={logoutUser} to="#!" className="nav-link">Logout</Link>
+                </div>) : (<div className="nav-menu">
                     <Link to="/login" className="nav-link">Login</Link>
-                </div>
+                </div>)}
+
             </nav>
         </>
     )
 }
 
-export default Navbar
+Navbar.propTypes = {
+    user: PropTypes.object.isRequired,
+}
+
+const mapStateToProps = (state) => ({
+    user: state.user
+})
+
+export default connect(mapStateToProps , {logoutUser})(Navbar)
