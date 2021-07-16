@@ -1,6 +1,8 @@
+/** @format */
+
 .navbar {
-  background: rgba(226, 226, 226, 0.253);
-  height: 70px;
+  background: rgba(252, 252, 252, 0.801);
+  height: 64px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -15,6 +17,7 @@
     cursor: pointer;
 
     .nav-link {
+      font-family: "Poppins", sans-serif;
       text-decoration: none;
       color: #294d5d;
       font-weight: 500;
