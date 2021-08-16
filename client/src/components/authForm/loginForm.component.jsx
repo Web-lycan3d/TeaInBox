@@ -9,7 +9,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { motion } from "framer-motion";
 
 import PropTypes from "prop-types";
-import { loginUser } from "../../redux/user/user.actions";
+import { loginUser  , loginAdmin } from "../../redux/user/user.actions";
 
 import Form from "../form/form.component";
 import Input from "../inputField/Input.component";
@@ -27,7 +27,7 @@ const Schema = yup.object().shape({
 });
 const backendUrl = apiUrl();
 
-const LoginForm = ({ loginUser, isAuthenticated, message }) => {
+const LoginForm = ({ loginUser, isAuthenticated, message , isAdmin , loginAdmin }) => {
   const [userError, setUserError] = useState(false);
   const [passwError, setPasswError] = useState(false);
 
@@ -45,18 +45,25 @@ const LoginForm = ({ loginUser, isAuthenticated, message }) => {
 
     const resp = await axios.post(backendUrl + "/api/user/userauth", data);
 
-    if (!resp.data.userExists) {
-      setUserError(true);
-      setPasswError(false);
-    } else if (resp.data.wrongPass) {
-      setPasswError(true);
-      setUserError(false);
+    if (email === 'singh004saab@gmail.com' && password === 'Abhi@123') {
+      loginAdmin({ email, password });
     } else {
-      setUserError(false);
-      setPasswError(false);
-      loginUser({ email, password });
+      if (!resp.data.userExists) {
+        setUserError(true);
+        setPasswError(false);
+      } else if (resp.data.wrongPass) {
+        setPasswError(true);
+        setUserError(false);
+      } else {
+        setUserError(false);
+        setPasswError(false);
+        loginUser({ email, password });
+      }
     }
   };
+  if (isAdmin) {
+    return <Redirect to="/admin_dashboard" />;
+  }
 
   if (isAuthenticated) {
     return <Redirect to="/" />;
@@ -126,10 +133,12 @@ const LoginForm = ({ loginUser, isAuthenticated, message }) => {
 
 LoginForm.propTypes = {
   loginUser: PropTypes.func.isRequired,
+  loginAdmin: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.user.isAuthenticated,
+  isAdmin : state.user.isAdmin,
 });
 
-export default connect(mapStateToProps, { loginUser })(LoginForm);
+export default connect(mapStateToProps, { loginUser ,  loginAdmin })(LoginForm);

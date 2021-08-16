@@ -6,6 +6,7 @@ import {
   REGISTER_FAIL,
   USER_LOADED,
   AUTH_ERROR,
+  LOGIN_ADMIN,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
@@ -39,66 +40,97 @@ export const loadUser = () => async (dispatch) => {
 //Register the user
 export const registerUser =
   ({ username, email, password }) =>
-  async (dispatch) => {
-    const config = {
-      headers: { "Content-Type": "application/json" },
-    };
-    const body = JSON.stringify({ username, email, password });
-    try {
-      const res = await axios.post(
-        backendUrl + "/api/user/register",
-        body,
-        config
-      );
+    async (dispatch) => {
+      const config = {
+        headers: { "Content-Type": "application/json" },
+      };
+      const body = JSON.stringify({ username, email, password });
+      try {
+        const res = await axios.post(
+          backendUrl + "/api/user/register",
+          body,
+          config
+        );
 
-      dispatch({
-        type: REGISTER_SUCCESS,
-        payload: res.data,
-      });
-      dispatch(loadUser());
-    } catch (error) {
-      console.log(error);
-      const errors = error.response.data.errors;
-      if (errors) {
-        errors.forEach((err) => dispatch(setAlert(err.message, "danger")));
+        dispatch({
+          type: REGISTER_SUCCESS,
+          payload: res.data,
+        });
+        dispatch(loadUser());
+      } catch (error) {
+        console.log(error);
+        const errors = error.response.data.errors;
+        if (errors) {
+          errors.forEach((err) => dispatch(setAlert(err.message, "danger")));
+        }
+
+        dispatch({
+          type: REGISTER_FAIL,
+        });
       }
-
-      dispatch({
-        type: REGISTER_FAIL,
-      });
-    }
-  };
+    };
 
 //User Login
 export const loginUser =
   ({ email, password }) =>
-  async (dispatch) => {
-    const config = {
-      headers: { "Content-Type": "application/json" },
+    async (dispatch) => {
+      const config = {
+        headers: { "Content-Type": "application/json" },
+      };
+      const body = JSON.stringify({ email, password });
+      try {
+        const res = await axios.post(
+          backendUrl + "/api/user/login",
+          body,
+          config
+        );
+        dispatch({
+          type: LOGIN_SUCCESS,
+          payload: res.data,
+        });
+        dispatch(loadUser());
+      } catch (error) {
+        console.log(error);
+        // const errors = error.response.data.errors;
+        // if (errors) {
+        //     errors.forEach(err => dispatch(setAlert(err.message, "danger")))
+        // }
+        dispatch({
+          type: LOGIN_FAIL,
+        });
+      }
     };
-    const body = JSON.stringify({ email, password });
-    try {
-      const res = await axios.post(
-        backendUrl + "/api/user/login",
-        body,
-        config
-      );
-      dispatch({
-        type: LOGIN_SUCCESS,
-        payload: res.data,
-      });
-      dispatch(loadUser());
-    } catch (error) {
-      console.log(error);
-      // const errors = error.response.data.errors;
-      // if (errors) {
-      //     errors.forEach(err => dispatch(setAlert(err.message, "danger")))
-      // }
-      dispatch({
-        type: LOGIN_FAIL,
-      });
-    }
-  };
+
+//Admin Login
+export const loginAdmin =
+  ({ email, password }) =>
+    async (dispatch) => {
+      const config = {
+        headers: { "Content-Type": "application/json" },
+      };
+      const body = JSON.stringify({ email, password });
+      try {
+        const res = await axios.post(
+          backendUrl + "/api/user/login",
+          body,
+          config
+        );
+        dispatch({
+          type: LOGIN_ADMIN,
+          payload: res.data,
+        });
+        dispatch(loadUser());
+      } catch (error) {
+        console.log(error);
+        // const errors = error.response.data.errors;
+        // if (errors) {
+        //     errors.forEach(err => dispatch(setAlert(err.message, "danger")))
+        // }
+        dispatch({
+          type: LOGIN_FAIL,
+        });
+      }
+    };
 
 //logout / Clear Profile
 export const logoutUser = () => (dispatch) => {

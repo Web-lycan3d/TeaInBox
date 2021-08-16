@@ -1,0 +1,66 @@
+.admin-dashboard-container {
+  display: flex;
+  width: 80%;
+  flex-direction: column;
+  height: 80vh;
+  color: rgb(224, 60, 60);
+  background-color: #fff;
+  padding-top: 6%;
+  margin: 0 auto;
+
+  .admin-dsahboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    margin: 0 auto;
+    border-bottom: 1px solid #000;
+
+    .admin-dashboard-heading {
+      display: flex;
+      width: 35%;
+      justify-content: center;
+
+      h1 {
+        font-size: 35px;
+        text-transform: uppercase;
+        font-weight: bold;
+        font-family: "Poppins", sans-serif;
+      }
+    }
+
+    .admin-dashboard-search {
+      display: flex;
+      width: 20%;
+      justify-content: center;
+    }
+
+    .admin-dashboard-nav {
+      display: flex;
+      width: 25%;
+      justify-content: center;
+
+      .admin-dashboard-navlist {
+        font-size: 20px;
+        text-transform: uppercase;
+        font-weight: bold;
+        font-family: "Poppins", sans-serif;
+        padding-left: 2%;
+        cursor: pointer;
+        opacity: 0.65;
+      }
+
+      .active {
+        opacity: 1;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .admin-dashboard-content {
+    display: flex;
+    align-items: center;
+    width: 95%;
+    margin: 0 auto;
+  }
+}
