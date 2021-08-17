@@ -24,8 +24,8 @@ const port = process.env.PORT || 5000;
 // key_secret: "Tz6JDNva3qtDIAKnM6Na1rMB"
 
 const instance = new Razorpay({
-  key_id: "rzp_test_zAzm6DCQaOobFA",
-  key_secret: "Tz6JDNva3qtDIAKnM6Na1rMB",
+  key_id: "rzp_test_6zVUH0RpvBsqx6",
+  key_secret: "tjqyJQYzXaCNdCTUUGnFArBt",
 });
 
 router.post("/", async (req, res) => {
@@ -53,7 +53,7 @@ router.post("/", async (req, res) => {
 router.post("/capture/:id", async (req, res) => {
   const text = req.body.data.id + "|" + req.body.paymentId;
   try {
-    const hash = crypto.createHmac("sha256", process.env.RAZOR_SECRECT);
+    const hash = crypto.createHmac("sha256", "tjqyJQYzXaCNdCTUUGnFArBt");
     hash.update(text);
     const digest = hash.digest("hex");
     if (digest == req.params.id) {

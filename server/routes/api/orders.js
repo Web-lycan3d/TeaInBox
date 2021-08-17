@@ -20,23 +20,38 @@ router.post("/", auth, async (req, res) => {
     let orderD = new Date().toLocaleDateString();
 
     if (userDetails.orders) {
+      const oid = shortid.generate();
       const updateUserOrder = await User.findByIdAndUpdate(
         { _id: id },
         {
           $push: {
             "orders.orderdItems": {
+              orderId: oid,
+              status: "Order Processing",
+              email: userData.email,
+              phoneNumber: userData.phoneNumber,
+              Address: userData.address,
+              Pincode: userData.pincode,
+              City: userData.city,
               orderDate: orderD,
               orderTotal: total,
               orderdData: userOrder,
             },
           },
-        }
+        },
+        { new: true }
       );
       const updateOrdersModel = await Order.findOneAndUpdate(
         { userId: id },
         {
           $push: {
             orderdItems: {
+              orderId: oid,
+              email: userData.email,
+              phoneNumber: userData.phoneNumber,
+              Address: userData.address,
+              Pincode: userData.pincode,
+              City: userData.city,
               orderDate: orderD,
               orderTotal: total,
               orderdData: userOrder,
@@ -46,19 +61,21 @@ router.post("/", auth, async (req, res) => {
       );
       return res.status(200).json({ message: "updated" });
     } else {
+      const oid2 = shortid.generate();
       const updateUserOrders = await User.findByIdAndUpdate(
         { _id: req.user.id },
         {
           orders: {
             orderTotal: total,
-            orderId: userDetails.orders?.orderId
-              ? userDetails.orders.orderId
-              : shortid.generate(),
+
             userName: userDetails.username,
             userId: id,
-            email: userData.email,
+
             orderdItems: [
               {
+                orderId: oid2,
+                status: "Order Processing",
+                email: userData.email,
                 phoneNumber: userData.phoneNumber,
                 Address: userData.address,
                 Pincode: userData.pincode,
@@ -76,10 +93,11 @@ router.post("/", auth, async (req, res) => {
         orderTotal: total,
         orderId: updateUserOrders.orders.orderId,
         userName: updateUserOrders.username,
-        email: userData.email,
 
         userId: id,
         orderdItems: {
+          orderId: oid2,
+          email: userData.email,
           phoneNumber: userData.phoneNumber,
           Address: userData.address,
           Pincode: userData.pincode,

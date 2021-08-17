@@ -1,0 +1,96 @@
+/** @format */
+
+.dropdown-flow {
+  width: 95%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  margin: 0rem auto 0.9rem;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.363);
+  color: rgba(233, 104, 84, 0.829);
+  position: relative;
+
+  .dropdown-flow-left {
+    width: 25rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    .items-orderd-list {
+      padding-right: 1rem;
+      span {
+        display: block;
+        width: 4rem;
+        text-transform: capitalize;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.171);
+      }
+      span:last-child {
+        border-bottom: 1px solid rgba(0, 0, 0, 0);
+      }
+    }
+    .items-orderd-address {
+      padding-left: 1rem;
+      border-left: 1px solid black;
+      span {
+        font-size: 0.95rem;
+        line-height: 1;
+      }
+    }
+  }
+  .dropdown-flow-right {
+    button {
+      display: block;
+      width: 11rem;
+      font-size: 0.8rem;
+      background: transparent;
+      outline: 0;
+      border-radius: 8px;
+      padding: 0.25rem 0.5rem;
+      margin: 0.4rem 0;
+      cursor: pointer;
+      transition: all 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+      &:hover {
+        transform: scale(1.02);
+        letter-spacing: 0.6px;
+      }
+    }
+    .orange {
+      border: 2px solid rgba(255, 166, 0, 0.397);
+    }
+    .blue {
+      border: 2px solid rgba(173, 216, 230, 0.808);
+    }
+    .green {
+      border: 2px solid rgba(144, 238, 144, 0.658);
+    }
+    .purple {
+      border: 2px solid rgba(102, 51, 153, 0.308);
+    }
+    .red {
+      border: 2px solid rgba(255, 0, 0, 0.226);
+    }
+  }
+}
+.details-address {
+  position: absolute;
+  top: 1rem;
+  left: -1rem;
+  min-width: 10rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin: 0 auto;
+  color: rgba(109, 109, 109, 0.993);
+  p {
+    text-align: center;
+    margin: 0 0.35rem;
+    font-size: 0.96rem;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    .address-icons {
+      font-size: 1rem;
+      margin-right: 0.2rem;
+    }
+  }
+}
