@@ -7,7 +7,6 @@ import { AiOutlineMail } from "react-icons/ai";
 import axios from "axios";
 
 const OrderdItems = ({ data }) => {
-  console.log(data);
   const handleProcessing = async (itemid) => {
     const list = {
       text: "Order Processing",

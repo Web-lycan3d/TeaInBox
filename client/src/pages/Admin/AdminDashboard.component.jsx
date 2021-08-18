@@ -1,7 +1,9 @@
 /** @format */
 
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import SearchBar from "material-ui-search-bar";
+import { connect } from "react-redux";
+import {Redirect} from "react-router-dom"
 import "./AdminDashboard.styles.scss";
 import Dropdown from "../../components/dropdown/Dropdown";
 import axios from "axios";
@@ -11,70 +13,73 @@ const backendUrl = apiUrl();
 const doSomethingWith = (value) => {
   console.log(value);
 };
-class AdminDashboard extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      value: "",
-      option: null,
-      userData: [],
-    };
-  }
-  async componentDidMount() {
+const AdminDashboard = (isAdmin) => {
+  const [value, setValue] = useState("");
+  const [option, setOption] = useState(null);
+  const [userData, setUserData] = useState([]);
+  
+  useEffect(async () => {
     try {
       const { data } = await axios.get(backendUrl + "/api/user/admin/userdata");
-      data && this.setState({ userData: data });
+      data && setUserData(data);
+      
     } catch (error) {
       console.log(error);
     }
+  }, [])
+  
+  if(!isAdmin.isAdmin){
+    return <Redirect to="/" />
   }
-  render() {
-    return (
-      <div className="admin-dashboard-container">
-        <div className="admin-dsahboard-header">
-          <div className="admin-dashboard-heading">
-            <h1>Admin Dashboard</h1>{" "}
-            <div className="admin-dashboard-search">
-              <SearchBar
-                className="dashboard-search-bar"
-                value={this.state.value}
-                onChange={(newValue) => this.setState({ value: newValue })}
-                onRequestSearch={() => doSomethingWith(this.state.value)}
-              />
-            </div>
-          </div>
 
-          <div className="admin-dashboard-nav">
-            <span
-              onClick={() => this.setState({ option: true })}
-              className={
-                this.state.option
-                  ? "admin-dashboard-navlist active"
-                  : "admin-dashboard-navlist"
-              }>
-              New Orders
-            </span>
-            <span
-              onClick={() => this.setState({ option: false })}
-              className={
-                this.state.option
-                  ? "admin-dashboard-navlist"
-                  : "admin-dashboard-navlist active"
-              }>
-              Orders
-            </span>
+  return (
+    <div className="admin-dashboard-container">
+      <div className="admin-dsahboard-header">
+        <div className="admin-dashboard-heading">
+          <h1>Admin Dashboard</h1>{" "}
+          <div className="admin-dashboard-search">
+            <SearchBar
+              className="dashboard-search-bar"
+              value={value}
+              onChange={(newValue) => setValue({ value: newValue })}
+              onRequestSearch={() => doSomethingWith(value)}
+            />
           </div>
         </div>
-        <div className="admin-dashboard-content">
-          {this.state.userData &&
-            this.state.userData.map((item, index) => (
-              <Dropdown value={item} key={index} />
-            ))}
+
+        <div className="admin-dashboard-nav">
+          <span
+            onClick={() => setOption({ option: true })}
+            className={
+              option
+                ? "admin-dashboard-navlist active"
+                : "admin-dashboard-navlist"
+            }>
+            New Orders
+          </span>
+          <span
+            onClick={() => setOption({ option: false })}
+            className={
+              option
+                ? "admin-dashboard-navlist"
+                : "admin-dashboard-navlist active"
+            }>
+            Orders
+          </span>
         </div>
       </div>
-    );
-  }
+      <div className="admin-dashboard-content">
+        {userData &&
+          userData.map((item, index) => (
+            <Dropdown value={item} key={index} />
+          ))}
+      </div>
+    </div>
+  );
 }
 
-export default AdminDashboard;
+const mapStateToProps = (state) => ({
+  isAdmin : state.user.isAdmin
+})
+
+export default connect(mapStateToProps)(AdminDashboard);
