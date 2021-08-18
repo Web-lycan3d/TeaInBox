@@ -53,7 +53,7 @@ class AdminDashboard extends Component {
                   ? "admin-dashboard-navlist active"
                   : "admin-dashboard-navlist"
               }>
-              Users
+              New Orders
             </span>
             <span
               onClick={() => this.setState({ option: false })}

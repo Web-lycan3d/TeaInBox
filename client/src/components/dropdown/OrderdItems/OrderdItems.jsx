@@ -2,11 +2,12 @@
 
 import React from "react";
 import "./orderditems.styles.scss";
-import { BiPhone } from "react-icons/bi";
+import { BiPhone, BiIdCard } from "react-icons/bi";
 import { AiOutlineMail } from "react-icons/ai";
 import axios from "axios";
 
 const OrderdItems = ({ data }) => {
+  console.log(data);
   const handleProcessing = async (itemid) => {
     const list = {
       text: "Order Processing",
@@ -43,6 +44,8 @@ const OrderdItems = ({ data }) => {
     const resp5 = await axios.post("/api/user/admin/update", list);
   };
 
+  
+
   return (
     <>
       <div className="dropdown-flow">
@@ -51,18 +54,24 @@ const OrderdItems = ({ data }) => {
             <BiPhone className="address-icons" /> {data.phoneNumber}
           </p>
           <p>
-            {" "}
+            {"  "}
             <AiOutlineMail className="address-icons" /> {data.email}
+          </p>
+          <p>
+            {"  "}
+            <BiIdCard className="address-icons" /> {data.orderId}
           </p>
         </div>
         <div className="dropdown-flow-left">
           <div className="items-orderd-list">
             {data.orderdData.map((list) => (
-              <span>{`${list.name.substring(0, 3)} | ${list.quantity}`} </span>
+              <span>{`${list.name.substring(0, 3)}${list.price} X ${list.quantity}`} </span>
             ))}
           </div>
           <div className="items-orderd-address">
             <span>{`${data.Address},${data.City},${data.Pincode} `}</span>
+            <hr />
+            <span>{`Order Date : ${data.orderDate}`}</span>
           </div>
         </div>
         <div className="dropdown-flow-right">

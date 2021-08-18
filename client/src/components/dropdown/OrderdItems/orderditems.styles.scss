@@ -12,15 +12,15 @@
   position: relative;
 
   .dropdown-flow-left {
-    width: 25rem;
+    width: 70%;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     .items-orderd-list {
       padding-right: 1rem;
+      width: 25%;
       span {
         display: block;
-        width: 4rem;
         text-transform: capitalize;
         border-bottom: 1px solid rgba(0, 0, 0, 0.171);
       }
@@ -31,6 +31,8 @@
     .items-orderd-address {
       padding-left: 1rem;
       border-left: 1px solid black;
+      display: flex;
+      flex-direction: column;
       span {
         font-size: 0.95rem;
         line-height: 1;
