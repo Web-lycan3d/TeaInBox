@@ -20,8 +20,8 @@ const port = process.env.PORT || 5000;
 //   }
 // };
 
-// testky:rzp_test_zAzm6DCQaOobFA
-// key_secret: "Tz6JDNva3qtDIAKnM6Na1rMB"
+// testky:rzp_test_6zVUH0RpvBsqx6
+// key_secret: "tjqyJQYzXaCNdCTUUGnFArBt"
 
 const instance = new Razorpay({
   key_id: "rzp_test_6zVUH0RpvBsqx6",

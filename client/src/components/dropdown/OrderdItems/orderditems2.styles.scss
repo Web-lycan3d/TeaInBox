@@ -51,12 +51,14 @@
     }
   }
   .dropdown-flow-right {
-    width: 11rem;
+    width: 12rem;
     .select-option {
       display: block;
       width: 100%;
-      border: 2px solid rgba(0, 0, 0, 0.493);
+      border: 2px solid rgba(0, 0, 0, 0);
       padding: 0.2rem 0.5rem;
+      background: rgba(214, 214, 214, 0.26);
+      outline: 0;
     }
     .data-status {
       font-size: 0.8rem;
@@ -74,7 +76,7 @@
       margin: 1.1rem 0 0;
       cursor: pointer;
       transition: all 0.45s cubic-bezier(0.23, 1, 0.32, 1);
-      border: 2px solid rgba(243, 134, 134, 0.753);
+      border: 2px solid rgba(243, 134, 134, 0.274);
       &:hover {
         letter-spacing: 0.6px;
       }

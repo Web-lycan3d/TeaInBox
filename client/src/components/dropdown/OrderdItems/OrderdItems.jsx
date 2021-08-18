@@ -1,7 +1,7 @@
 /** @format */
 
 import React, { useEffect, useState } from "react";
-import "./orderditems.styles.scss";
+import "./orderditems2.styles.scss";
 import { BiPhone, BiIdCard } from "react-icons/bi";
 import { AiOutlineMail } from "react-icons/ai";
 import axios from "axios";
