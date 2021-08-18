@@ -94,7 +94,7 @@ const Checkout = ({ total }) => {
     });
 
     const options = {
-      key: "rzp_live_nce88IhegilKjE",
+      key: "rzp_test_6zVUH0RpvBsqx6",
       amount: "20000",
       currency: "INR",
       name: "TeaInBox",

@@ -22,7 +22,7 @@ class AdminDashboard extends Component {
             <div className="admin-dashboard-container">
                 <div className="admin-dsahboard-header">
                     <div className="admin-dashboard-heading">
-                        <h1>Admin Dashboard</h1>
+                        <h1>Admin Dash</h1>
                     </div>
                     <div className="admin-dashboard-search">
                         <SearchBar

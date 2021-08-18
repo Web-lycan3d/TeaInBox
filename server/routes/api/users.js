@@ -291,6 +291,7 @@ router.patch("/fav", auth, async (req, res) => {
 
   res.json(updateFav);
 });
+
 router.patch("/unfav", auth, async (req, res) => {
   const { id } = req.user;
 
@@ -308,5 +309,12 @@ router.get("/data", auth, async (req, res) => {
   const userDetails = await User.findOne({ _id: id });
   res.json(userDetails);
 });
+
+router.get("/allusers" , async (req, res) => {
+  const userDetails = await User.find()
+  userDetails.map((user) => {
+    res.json({users : user})
+  })
+})
 
 module.exports = router;
