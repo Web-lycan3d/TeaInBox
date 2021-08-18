@@ -2,9 +2,10 @@
 
 import React from "react";
 
-const OrderItems = ({ total, item }) => {
+const OrderItems = ({ total, item, status }) => {
   return (
     <>
+      <span className="order-status">{status}</span>
       <div className="ordered-item-container">
         <div className="orderd-image">
           <img src={item.imageURL} alt="error" />

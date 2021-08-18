@@ -10,6 +10,7 @@ import AccordionDetails from "@material-ui/core/AccordionDetails";
 import { MdExpandLess } from "react-icons/md";
 
 const CartBox = ({ items, count, orderId }) => {
+  console.log(items);
   return (
     <div className="cart-box">
       <Accordion className="box">
@@ -18,7 +19,7 @@ const CartBox = ({ items, count, orderId }) => {
             <span>Item: {count}</span>
 
             <span>
-              orderd on: {items.orderDate} | OrderId : {orderId}
+              orderd on: {items.orderDate} | OrderId : {items.orderId}
             </span>
             <p>
               Total &nbsp; <span> ₹{items.orderTotal}</span>{" "}
@@ -27,8 +28,8 @@ const CartBox = ({ items, count, orderId }) => {
         </AccordionSummary>
         <AccordionDetails>
           <div className="items-orderd">
-            {items.orderdData?.map((orderdItem) => (
-              <OrderItems item={orderdItem} />
+            {items.orderdData?.map((orderdItem, index) => (
+              <OrderItems item={orderdItem} key={index} status={items.status} />
             ))}
           </div>
         </AccordionDetails>

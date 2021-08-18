@@ -39,7 +39,6 @@ router.post("/verify", (req, res) => {
     upperCase: false,
     specialChars: false,
   });
-  console.log("S");
 
   transport
     .sendMail({
@@ -310,11 +309,22 @@ router.get("/data", auth, async (req, res) => {
   res.json(userDetails);
 });
 
-router.get("/allusers" , async (req, res) => {
-  const userDetails = await User.find()
-  userDetails.map((user) => {
-    res.json({users : user})
-  })
-})
+router.get("/admin/userdata", async (req, res) => {
+  const data = await Order.find({});
+  res.json(data);
+});
+router.post("/admin/update", auth, async (req, res) => {
+  // const { id } = req.user;
+  // const update = await User.findOne({ _id: id });
+  // update.orders.orderdItems.find(async (item, index) => {
+  //   if (item.orderId === req.body.id) {
+  //     return (update.orders.orderdItems[index].status = "req.body.text");
+  //   }
+  // });
+  // await update.save();
+  // data.status = req.body.text;
+  // await update.save();
+  // console.log(update);
+});
 
 module.exports = router;

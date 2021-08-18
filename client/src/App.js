@@ -44,7 +44,9 @@ const Checkout = React.lazy(() =>
 const MainComponent = React.lazy(() =>
   import("./components/react-carousel/main.component")
 );
-const AdminDashboard = React.lazy(() => import("./pages/Admin/AdminDashboard.component"))
+const AdminDashboard = React.lazy(() =>
+  import("./pages/Admin/AdminDashboard.component")
+);
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -101,7 +103,7 @@ const App = () => {
             <PrivateRoute exact path="/cart" component={Cart}></PrivateRoute>
             <PrivateRoute exact path="/profile" component={Profile} />
             <PrivateRoute exact path="/checkout" component={Checkout} />
-            <PrivateRoute exact path="/admin_dashboard" component={AdminDashboard} />
+            <Route exact path="/admin_dashboard" component={AdminDashboard} />
           </Switch>
         </AnimatePresence>
         <Footer />
