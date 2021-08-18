@@ -13,7 +13,7 @@ import OrderdItems from "./OrderdItems/OrderdItems";
 
 const Dropdown = ({ value }) => {
   const total = value.orderTotal.reduce((a, b) => a + b, 0);
-  console.log(value);
+
   return (
     <div className="dropdown-conatiner">
       <div className="dropdown-contents">
@@ -24,6 +24,7 @@ const Dropdown = ({ value }) => {
                 <h1>{value.userName}</h1>
                 <div className="dropdown-details-left-user">
                   <span>User id: {value.userId} </span>
+                  <span>Email: {value.email} </span>
                 </div>
               </div>
               <div className="dropdown-details-right">
@@ -35,7 +36,7 @@ const Dropdown = ({ value }) => {
           <AccordionDetails>
             <div className="items-orderd-flex">
               {value?.orderdItems.map((item, index) => (
-                <OrderdItems data={item} key={index} />
+                <OrderdItems data={item} key={index} userid={value.userId} />
               ))}
             </div>
           </AccordionDetails>

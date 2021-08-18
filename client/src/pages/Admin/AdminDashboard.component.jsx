@@ -11,6 +11,7 @@ const backendUrl = apiUrl();
 const doSomethingWith = (value) => {
   console.log(value);
 };
+
 class AdminDashboard extends Component {
   constructor(props) {
     super(props);
@@ -22,6 +23,15 @@ class AdminDashboard extends Component {
     };
   }
   async componentDidMount() {
+    try {
+      const { data } = await axios.get(backendUrl + "/api/user/admin/userdata");
+      data && this.setState({ userData: data });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async componentDidUpdate() {
+    console.log("Ss");
     try {
       const { data } = await axios.get(backendUrl + "/api/user/admin/userdata");
       data && this.setState({ userData: data });

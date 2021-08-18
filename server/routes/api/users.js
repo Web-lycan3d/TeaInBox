@@ -308,22 +308,35 @@ router.get("/data", auth, async (req, res) => {
   res.json(userDetails);
 });
 
-router.get("/admin/userdata", async (req, res) => {
+router.get("/admin/userdata", auth, async (req, res) => {
   const data = await Order.find({});
   res.json(data);
 });
 router.post("/admin/update", auth, async (req, res) => {
-  // const { id } = req.user;
-  // const update = await User.findOne({ _id: id });
-  // update.orders.orderdItems.find(async (item, index) => {
-  //   if (item.orderId === req.body.id) {
-  //     return (update.orders.orderdItems[index].status = "req.body.text");
-  //   }
-  // });
-  // await update.save();
-  // data.status = req.body.text;
-  // await update.save();
-  // console.log(update);
+  const { id } = req.user;
+
+  const update = await User.findOneAndUpdate(
+    { _id: req.body.userid },
+    {
+      $set: { "orders.orderdItems.$[e2].status": req.body.text },
+    },
+    {
+      arrayFilters: [
+        {
+          "e2.orderId": req.body.id,
+        },
+      ],
+    }
+  );
+  const orderUpdate = await Order.findOneAndUpdate(
+    {
+      userId: req.body.userid,
+    },
+    { $set: { "orderdItems.$[e1].status": req.body.text } },
+    {
+      arrayFilters: [{ "e1.orderId": req.body.id }],
+    }
+  );
 });
 
 module.exports = router;
