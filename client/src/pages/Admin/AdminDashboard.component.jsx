@@ -30,13 +30,38 @@ class AdminDashboard extends Component {
       console.log(error);
     }
   }
-  async componentDidUpdate() {
-    console.log("Ss");
-    try {
-      const { data } = await axios.get(backendUrl + "/api/user/admin/userdata");
-      data && this.setState({ userData: data });
-    } catch (error) {
-      console.log(error);
+
+  // async componentDidUpdate(prevProps, prevState, snapshot) {
+  //   console.log(prevProps);
+  //   console.log(prevState);
+  //   console.log(snapshot);
+  //   console.log(this.state);
+  //   if (this.state.userData === prevState.userData) {
+  //     try {
+  //       const { data } = await axios.get(
+  //         backendUrl + "/api/user/admin/userdata"
+  //       );
+  //       data && this.setState({ userData: data });
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
+  // }
+  Droplist(value) {
+    if (value) {
+      return (
+        this.state.userData &&
+        this.state.userData.map((item, index) => (
+          <Dropdown value={item} key={index} orStatus={value} />
+        ))
+      );
+    } else {
+      return (
+        this.state.userData &&
+        this.state.userData.map((item, index) => (
+          <Dropdown value={item} key={index} orStatus={value} />
+        ))
+      );
     }
   }
   render() {
@@ -63,7 +88,7 @@ class AdminDashboard extends Component {
                   ? "admin-dashboard-navlist active"
                   : "admin-dashboard-navlist"
               }>
-              Users
+              New Orders
             </span>
             <span
               onClick={() => this.setState({ option: false })}
@@ -77,10 +102,7 @@ class AdminDashboard extends Component {
           </div>
         </div>
         <div className="admin-dashboard-content">
-          {this.state.userData &&
-            this.state.userData.map((item, index) => (
-              <Dropdown value={item} key={index} />
-            ))}
+          {this.state.option ? this.Droplist(true) : this.Droplist(false)}
         </div>
       </div>
     );

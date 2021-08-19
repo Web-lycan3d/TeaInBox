@@ -27,11 +27,9 @@ const OrderdItems = ({ data, userid }) => {
             <BiPhone className="address-icons" /> {data.phoneNumber}
           </p>
           <p>
-            {"  "}
             <AiOutlineMail className="address-icons" /> {data.email}
           </p>
           <p>
-            {"  "}
             <BiIdCard className="address-icons" /> {data.orderId}
           </p>
         </div>
