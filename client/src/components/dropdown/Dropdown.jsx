@@ -11,8 +11,9 @@ import "./dropdown.styles.scss";
 import convertor from "number-to-words";
 import OrderdItems from "./OrderdItems/OrderdItems";
 
-const Dropdown = ({ value }) => {
+const Dropdown = ({ value, orStatus }) => {
   const total = value.orderTotal.reduce((a, b) => a + b, 0);
+  console.log(orStatus);
 
   return (
     <div className="dropdown-conatiner">
@@ -34,11 +35,26 @@ const Dropdown = ({ value }) => {
             </div>
           </AccordionSummary>
           <AccordionDetails>
-            <div className="items-orderd-flex">
-              {value?.orderdItems.map((item, index) => (
-                <OrderdItems data={item} key={index} userid={value.userId} />
-              ))}
-            </div>
+            {orStatus ? (
+              <div className="items-orderd-flex">
+                {value?.orderdItems.map(
+                  (item, index) =>
+                    item.status === "Order Processing" && (
+                      <OrderdItems
+                        data={item}
+                        key={index}
+                        userid={value.userId}
+                      />
+                    )
+                )}
+              </div>
+            ) : (
+              <div className="items-orderd-flex">
+                {value?.orderdItems.map((item, index) => (
+                  <OrderdItems data={item} key={index} userid={value.userId} />
+                ))}
+              </div>
+            )}
           </AccordionDetails>
         </Accordion>
       </div>
