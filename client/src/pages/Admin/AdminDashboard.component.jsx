@@ -29,7 +29,7 @@ const AdminDashboard = (isAdmin) => {
   }, [])
   
   if(!isAdmin.isAdmin){
-    // return <Redirect to="/" />
+     return <Redirect to="/" />
   }
 
   return (

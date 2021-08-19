@@ -2,6 +2,7 @@
 
 .dropdown-flow {
   width: 95%;
+  height: 10rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -12,7 +13,7 @@
   position: relative;
 
   .dropdown-flow-left {
-    width: 70%;
+    width: 40%;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -33,49 +34,58 @@
       border-left: 1px solid black;
       display: flex;
       flex-direction: column;
+
       span {
         font-size: 0.95rem;
-        line-height: 1;
+        border-bottom: 1.25px solid rgba(0, 0, 0, 0.404);
+        line-height: 1.2;
+        padding: 0.25rem 0;
+        font-weight: 500;
+      }
+      span:nth-child(2) {
+        font-weight: 400;
+        border-bottom: 1.5px solid rgba(46, 0, 0, 0);
+        opacity: 1;
+        color: rgb(139, 139, 139);
       }
     }
   }
   .dropdown-flow-right {
+    width: 12rem;
+    .select-option {
+      display: block;
+      width: 100%;
+      border: 2px solid rgba(0, 0, 0, 0);
+      padding: 0.2rem 0.5rem;
+      background: rgba(214, 214, 214, 0.26);
+      outline: 0;
+    }
+    .data-status {
+      font-size: 0.8rem;
+      font-weight: 400;
+    }
     button {
       display: block;
-      width: 11rem;
+      width: 100%;
+
       font-size: 0.8rem;
       background: transparent;
       outline: 0;
-      border-radius: 8px;
-      padding: 0.25rem 0.5rem;
-      margin: 0.4rem 0;
+
+      padding: 0.22rem 0.5rem;
+      margin: 1.1rem 0 0;
       cursor: pointer;
       transition: all 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+      border: 2px solid rgba(243, 134, 134, 0.274);
       &:hover {
-        transform: scale(1.02);
         letter-spacing: 0.6px;
       }
-    }
-    .orange {
-      border: 2px solid rgba(255, 166, 0, 0.397);
-    }
-    .blue {
-      border: 2px solid rgba(173, 216, 230, 0.808);
-    }
-    .green {
-      border: 2px solid rgba(144, 238, 144, 0.658);
-    }
-    .purple {
-      border: 2px solid rgba(102, 51, 153, 0.308);
-    }
-    .red {
-      border: 2px solid rgba(255, 0, 0, 0.226);
     }
   }
 }
 .details-address {
   position: absolute;
-  top: 1rem;
+  top: 0rem;
   left: -1rem;
   min-width: 10rem;
   display: flex;

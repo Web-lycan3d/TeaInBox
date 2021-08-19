@@ -67,10 +67,9 @@ router.post("/", auth, async (req, res) => {
         {
           orders: {
             orderTotal: total,
-
             userName: userDetails.username,
             userId: id,
-
+            email: userData.email,
             orderdItems: [
               {
                 orderId: oid2,
@@ -91,9 +90,8 @@ router.post("/", auth, async (req, res) => {
       );
       const orderDetails = {
         orderTotal: total,
-        orderId: updateUserOrders.orders.orderId,
         userName: updateUserOrders.username,
-
+        email: userData.email,
         userId: id,
         orderdItems: {
           orderId: oid2,

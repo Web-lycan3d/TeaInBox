@@ -1,50 +1,24 @@
 /** @format */
 
-import React from "react";
-import "./orderditems.styles.scss";
+import React, { useEffect, useState } from "react";
+import "./orderditems2.styles.scss";
 import { BiPhone, BiIdCard } from "react-icons/bi";
 import { AiOutlineMail } from "react-icons/ai";
 import axios from "axios";
 
-const OrderdItems = ({ data }) => {
-  const handleProcessing = async (itemid) => {
-    const list = {
-      text: "Order Processing",
-      id: itemid,
-    };
-    const resp = await axios.post("/api/user/admin/update", list);
-  };
-  const handleTransit = async (itemid) => {
-    const list = {
-      text: "In Transit",
-      id: itemid,
-    };
-    const resp2 = await axios.post("/api/user/admin/update", list);
-  };
-  const handleDelivered = async (itemid) => {
-    const list = {
-      text: "Delivered",
-      id: itemid,
-    };
-    const resp3 = await axios.post("/api/user/admin/update", list);
-  };
-  const handleRefund = async (itemid) => {
-    const list = {
-      text: "Refund in Process",
-      id: itemid,
-    };
-    const resp4 = await axios.post("/api/user/admin/update", list);
-  };
-  const handleCancel = async (itemid) => {
-    const list = {
-      text: "Cancel in Process",
-      id: itemid,
-    };
-    const resp5 = await axios.post("/api/user/admin/update", list);
-  };
+const OrderdItems = ({ data, userid }) => {
+  const [status, setStatus] = useState("Order Processing");
 
-  
+  const handleSubmit = async (e, id) => {
+    e.preventDefault();
 
+    const Datalist = {
+      text: status,
+      id: id,
+      userid: userid,
+    };
+    const resp = await axios.post("/api/user/admin/update", Datalist);
+  };
   return (
     <>
       <div className="dropdown-flow">
@@ -64,35 +38,53 @@ const OrderdItems = ({ data }) => {
         <div className="dropdown-flow-left">
           <div className="items-orderd-list">
             {data.orderdData.map((list) => (
-              <span>{`${list.name.substring(0, 3)}${list.price} X ${list.quantity}`} </span>
+              <span>
+                {`${list.name.substring(0, 3)}${list.price} X ${list.quantity}`}{" "}
+              </span>
             ))}
           </div>
           <div className="items-orderd-address">
             <span>{`${data.Address},${data.City},${data.Pincode} `}</span>
-            <hr />
+
             <span>{`Order Date : ${data.orderDate}`}</span>
           </div>
         </div>
         <div className="dropdown-flow-right">
-          <button
-            className="orange"
-            onClick={() => handleProcessing(data.orderId)}>
-            Order Processing
-          </button>
-          <button className="blue" onClick={() => handleTransit(data.orderId)}>
-            in Transit
-          </button>
-          <button
-            className="green"
-            onClick={() => handleDelivered(data.orderId)}>
-            Deliverd
-          </button>
-          <button className="purple" onClick={() => handleRefund(data.orderId)}>
-            Refund
-          </button>
-          <button className="red" onClick={() => handleCancel(data.orderId)}>
-            Cancelled
-          </button>
+          <form onSubmit={(e) => handleSubmit(e, data.orderId)}>
+            <input type="hidden" value={data.orderId} name="orderid" />
+            <select
+              name="orderstatus"
+              className="select-option"
+              onChange={(e) => setStatus(e.target.value)}>
+              <option
+                value="Order Processing"
+                selected={data.status === "Order Processing" ? "selected" : ""}>
+                Order Processing
+              </option>
+              <option
+                value="In Transit"
+                selected={data.status === "In Transit" ? "selected" : ""}>
+                In Transit
+              </option>
+              <option
+                value="Delivered"
+                selected={data.status === "Delivered" ? "selected" : ""}>
+                Delivered
+              </option>
+              <option
+                value="Refund"
+                selected={data.status === "Refund" ? "selected" : ""}>
+                Refund
+              </option>
+              <option
+                value="Cancelled"
+                selected={data.status === "Cancelled" ? "selected" : ""}>
+                Cancelled
+              </option>
+            </select>
+            <span className="data-status">status:{data.status}</span>
+            <button type="submit">Submit</button>
+          </form>
         </div>
       </div>{" "}
     </>

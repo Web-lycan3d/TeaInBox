@@ -4,9 +4,8 @@ const mongoose = require("mongoose");
 
 const orderSchema = new mongoose.Schema({
   orderTotal: [{}],
-
   userName: String,
-
+  email: String,
   orderdItems: [
     {
       status: {
