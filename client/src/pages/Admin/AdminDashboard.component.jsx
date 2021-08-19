@@ -29,14 +29,14 @@ const AdminDashboard = (isAdmin) => {
   }, [])
   
   if(!isAdmin.isAdmin){
-    return <Redirect to="/" />
+    // return <Redirect to="/" />
   }
 
   return (
     <div className="admin-dashboard-container">
       <div className="admin-dsahboard-header">
         <div className="admin-dashboard-heading">
-          <h1>Admin Dashboard</h1>{" "}
+          <h1>Admin Dash</h1>{" "}
           <div className="admin-dashboard-search">
             <SearchBar
               className="dashboard-search-bar"
