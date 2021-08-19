@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import SearchBar from "material-ui-search-bar";
 import "./AdminDashboard.styles.scss";
 import Dropdown from "../../components/dropdown/Dropdown";
@@ -12,31 +12,28 @@ const doSomethingWith = (value) => {
   console.log(value);
 };
 
-class AdminDashboard extends Component {
-  constructor(props) {
-    super(props);
+const AdminDashboard = () => {
 
-    this.state = {
-      value: "",
-      option: null,
-      userData: [],
-    };
-  }
-  async componentDidMount() {
+  const [value, setValue] = useState("");
+  const [option, setOption] = useState(null);
+  const [userData, setUserData] = useState([]);
+
+  useEffect(async () => {
     try {
       const { data } = await axios.get(backendUrl + "/api/user/admin/userdata");
-      data && this.setState({ userData: data });
+      data && setUserData(data);
+     
     } catch (error) {
       console.log(error);
     }
-  }
+  }, [])
 
   // async componentDidUpdate(prevProps, prevState, snapshot) {
   //   console.log(prevProps);
   //   console.log(prevState);
   //   console.log(snapshot);
   //   console.log(this.state);
-  //   if (this.state.userData === prevState.userData) {
+  //   if (userData === prevState.userData) {
   //     try {
   //       const { data } = await axios.get(
   //         backendUrl + "/api/user/admin/userdata"
@@ -47,66 +44,64 @@ class AdminDashboard extends Component {
   //     }
   //   }
   // }
-  Droplist(value) {
+  const Droplist = (value) => {
     if (value) {
       return (
-        this.state.userData &&
-        this.state.userData.map((item, index) => (
+        userData &&
+        userData.map((item, index) => (
           <Dropdown value={item} key={index} orStatus={value} />
         ))
       );
     } else {
       return (
-        this.state.userData &&
-        this.state.userData.map((item, index) => (
+        userData &&
+        userData.map((item, index) => (
           <Dropdown value={item} key={index} orStatus={value} />
         ))
       );
     }
   }
-  render() {
-    return (
-      <div className="admin-dashboard-container">
-        <div className="admin-dsahboard-header">
-          <div className="admin-dashboard-heading">
-            <h1>Admin Dashboard</h1>{" "}
-            <div className="admin-dashboard-search">
-              <SearchBar
-                className="dashboard-search-bar"
-                value={this.state.value}
-                onChange={(newValue) => this.setState({ value: newValue })}
-                onRequestSearch={() => doSomethingWith(this.state.value)}
-              />
-            </div>
-          </div>
-
-          <div className="admin-dashboard-nav">
-            <span
-              onClick={() => this.setState({ option: true })}
-              className={
-                this.state.option
-                  ? "admin-dashboard-navlist active"
-                  : "admin-dashboard-navlist"
-              }>
-              New Orders
-            </span>
-            <span
-              onClick={() => this.setState({ option: false })}
-              className={
-                this.state.option
-                  ? "admin-dashboard-navlist"
-                  : "admin-dashboard-navlist active"
-              }>
-              Orders
-            </span>
+  return (
+    <div className="admin-dashboard-container">
+      <div className="admin-dsahboard-header">
+        <div className="admin-dashboard-heading">
+          <h1>Admin Dashboard</h1>{" "}
+          <div className="admin-dashboard-search">
+            <SearchBar
+              className="dashboard-search-bar"
+              value={value}
+              onChange={(newValue) => setValue(newValue)}
+              onRequestSearch={() => doSomethingWith(value)}
+            />
           </div>
         </div>
-        <div className="admin-dashboard-content">
-          {this.state.option ? this.Droplist(true) : this.Droplist(false)}
+
+        <div className="admin-dashboard-nav">
+          <span
+            onClick={() => setOption(true)}
+            className={
+              option
+                ? "admin-dashboard-navlist active"
+                : "admin-dashboard-navlist"
+            }>
+            New Orders
+          </span>
+          <span
+            onClick={() => setOption(false)}
+            className={
+              option
+                ? "admin-dashboard-navlist"
+                : "admin-dashboard-navlist active"
+            }>
+            Orders
+          </span>
         </div>
       </div>
-    );
-  }
+      <div className="admin-dashboard-content">
+        {option ? Droplist(true) : Droplist(false)}
+      </div>
+    </div>
+  );
 }
 
 export default AdminDashboard;
