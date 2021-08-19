@@ -5,8 +5,9 @@ import "./orderditems2.styles.scss";
 import { BiPhone, BiIdCard } from "react-icons/bi";
 import { AiOutlineMail } from "react-icons/ai";
 import axios from "axios";
-
-const OrderdItems = ({ data, userid }) => {
+import Tooltip from "../../Tooltip/Tooltip";
+import { useHistory } from "react-router-dom";
+const OrderdItems = ({ data, userid, updateState, deliverState }) => {
   const [status, setStatus] = useState("Order Processing");
 
   const handleSubmit = async (e, id) => {
@@ -18,10 +19,21 @@ const OrderdItems = ({ data, userid }) => {
       userid: userid,
     };
     const resp = await axios.post("/api/user/admin/update", Datalist);
+
+    if (resp) updateState();
   };
+
   return (
     <>
       <div className="dropdown-flow">
+        <div
+          className={
+            deliverState
+              ? "status-color status-green"
+              : "status-color status-red"
+          }>
+          {" "}
+        </div>
         <div className="details-address">
           <p>
             <BiPhone className="address-icons" /> {data.phoneNumber}
@@ -45,6 +57,7 @@ const OrderdItems = ({ data, userid }) => {
             <span>{`${data.Address},${data.City},${data.Pincode} `}</span>
 
             <span>{`Order Date : ${data.orderDate}`}</span>
+            <span>{`Order Price : ${data.orderTotal}`}</span>
           </div>
         </div>
         <div className="dropdown-flow-right">
@@ -81,7 +94,7 @@ const OrderdItems = ({ data, userid }) => {
               </option>
             </select>
             <span className="data-status">status:{data.status}</span>
-            <button type="submit">Submit</button>
+            <button type="submit">Submit</button>{" "}
           </form>
         </div>
       </div>{" "}

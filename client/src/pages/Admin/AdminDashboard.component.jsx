@@ -13,20 +13,25 @@ const doSomethingWith = (value) => {
 };
 
 const AdminDashboard = () => {
-
   const [value, setValue] = useState("");
   const [option, setOption] = useState(null);
   const [userData, setUserData] = useState([]);
+  const [upstate, setupState] = useState(false);
 
-  useEffect(async () => {
+  useEffect(() => {
+    fetchData();
+  }, [upstate]);
+  const updateState = () => {
+    setupState(!upstate);
+  };
+  const fetchData = async () => {
     try {
       const { data } = await axios.get(backendUrl + "/api/user/admin/userdata");
       data && setUserData(data);
-     
     } catch (error) {
       console.log(error);
     }
-  }, [])
+  };
 
   // async componentDidUpdate(prevProps, prevState, snapshot) {
   //   console.log(prevProps);
@@ -48,19 +53,36 @@ const AdminDashboard = () => {
     if (value) {
       return (
         userData &&
-        userData.map((item, index) => (
-          <Dropdown value={item} key={index} orStatus={value} />
-        ))
+        userData.map(
+          (item, index) =>
+            item.orderdItems.find(
+              (el) =>
+                el.status === "Order Processing" || el.status === "In Transit"
+            ) && (
+              <Dropdown
+                value={item}
+                key={index}
+                orStatus={value}
+                st={true}
+                updateState={updateState}
+              />
+            )
+        )
       );
     } else {
       return (
         userData &&
         userData.map((item, index) => (
-          <Dropdown value={item} key={index} orStatus={value} />
+          <Dropdown
+            value={item}
+            key={index}
+            orStatus={value}
+            updateState={updateState}
+          />
         ))
       );
     }
-  }
+  };
   return (
     <div className="admin-dashboard-container">
       <div className="admin-dsahboard-header">
@@ -102,6 +124,6 @@ const AdminDashboard = () => {
       </div>
     </div>
   );
-}
+};
 
 export default AdminDashboard;
