@@ -41,6 +41,10 @@ router.post("/", auth, async (req, res) => {
         },
         { new: true }
       );
+      const updatetotal = await Order.updateOne(
+        { userId: id },
+        { $push: { orderTotal: total } }
+      );
       const updateOrdersModel = await Order.findOneAndUpdate(
         { userId: id },
         {

@@ -9,7 +9,7 @@ import Tooltip from "../../Tooltip/Tooltip";
 import { useHistory } from "react-router-dom";
 const OrderdItems = ({ data, userid, updateState, deliverState }) => {
   const [status, setStatus] = useState("Order Processing");
-  const history = useHistory();
+
   const handleSubmit = async (e, id) => {
     e.preventDefault();
 
@@ -57,6 +57,7 @@ const OrderdItems = ({ data, userid, updateState, deliverState }) => {
             <span>{`${data.Address},${data.City},${data.Pincode} `}</span>
 
             <span>{`Order Date : ${data.orderDate}`}</span>
+            <span>{`Order Price : ${data.orderTotal}`}</span>
           </div>
         </div>
         <div className="dropdown-flow-right">

@@ -25,6 +25,7 @@
         text-transform: capitalize;
         border-bottom: 1px solid rgba(0, 0, 0, 0.171);
       }
+
       span:last-child {
         border-bottom: 1px solid rgba(0, 0, 0, 0);
       }
@@ -39,13 +40,19 @@
         font-size: 0.95rem;
         border-bottom: 1.25px solid rgba(0, 0, 0, 0.404);
         line-height: 1.2;
-        padding: 0.25rem 0;
+        padding: 0.2rem 0;
         font-weight: 500;
       }
       span:nth-child(2) {
         font-weight: 400;
         border-bottom: 1.5px solid rgba(46, 0, 0, 0);
         opacity: 1;
+        color: rgb(139, 139, 139);
+      }
+      span:nth-child(3) {
+        font-weight: 400;
+        padding: 0.05rem 0;
+        border-bottom: 1px solid rgba(0, 0, 0, 0);
         color: rgb(139, 139, 139);
       }
     }

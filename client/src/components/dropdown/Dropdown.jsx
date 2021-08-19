@@ -6,13 +6,16 @@ import {
   AccordionDetails,
 } from "@material-ui/core";
 import { MdExpandLess } from "react-icons/md";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./dropdown.styles.scss";
 import convertor from "number-to-words";
 import OrderdItems from "./OrderdItems/OrderdItems";
 
 const Dropdown = ({ value, orStatus, st, updateState }) => {
   const total = value.orderTotal.reduce((a, b) => a + b, 0);
+  let [t, setT] = useState([]);
+
+  useEffect(() => {}, []);
 
   return (
     <div className="dropdown-conatiner">
