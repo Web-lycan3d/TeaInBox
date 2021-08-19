@@ -338,6 +338,7 @@ router.post("/admin/update", auth, async (req, res) => {
       arrayFilters: [{ "e1.orderId": req.body.id }],
     }
   );
+  res.json({ message: "updated" });
 });
 
 module.exports = router;
