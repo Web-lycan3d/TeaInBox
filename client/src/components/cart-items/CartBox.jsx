@@ -19,7 +19,7 @@ const CartBox = ({ items, count, orderId }) => {
             <span>Item: {count}</span>
 
             <span>
-              orderd on: {items.orderDate} | OrderId : {items.orderId}
+              Order on: {items.orderDate} | OrderId : {items.orderId}
             </span>
             <p>
               Total &nbsp; <span> ₹{items.orderTotal}</span>{" "}
@@ -29,7 +29,7 @@ const CartBox = ({ items, count, orderId }) => {
         <AccordionDetails>
           <div className="items-orderd">
             {items.orderdData?.map((orderdItem, index) => (
-              <OrderItems item={orderdItem} key={index} status={items.status} />
+              <OrderItems item={orderdItem} key={index} status={items.status} address={items.Address} city={items.City} pin={items.Pincode} />
             ))}
           </div>
         </AccordionDetails>

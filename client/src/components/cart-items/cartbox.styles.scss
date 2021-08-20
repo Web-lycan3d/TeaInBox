@@ -66,7 +66,8 @@
 .items-orderd {
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
   overflow-x: auto;
   scrollbar-color: #888 #f1f1f1;
@@ -106,6 +107,10 @@
   }
   .orderd-details {
     margin-left: 0.8rem;
+    margin-left: 0.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     h4 {
       font-size: 1.3rem;
       font-family: "Poppins", sans-serif;
@@ -120,6 +125,7 @@
       font-weight: 400;
       margin-right: 0.25rem;
       color: rgb(241, 111, 111);
+      margin-left: 1rem;
     }
     .item-quantity {
       font-family: "Poppins", sans-serif;
@@ -135,6 +141,13 @@
   bottom: 0.8rem;
   right: 1.1rem;
   font-size: 0.95rem;
+}
+.order-delivery {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 0.95rem;
+  width: 30%; 
 }
 @media screen and (max-width: 550px) {
   .cart-box {
