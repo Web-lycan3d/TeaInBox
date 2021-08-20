@@ -12,6 +12,10 @@ const orderSchema = new mongoose.Schema({
         type: String,
         default: "Order Processing",
       },
+      orderCancel: {
+        type: Boolean,
+        default: false,
+      },
       orderId: String,
       email: String,
       phoneNumber: String,

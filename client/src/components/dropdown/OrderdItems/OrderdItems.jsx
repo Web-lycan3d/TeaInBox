@@ -79,8 +79,8 @@ const OrderdItems = ({ data, userid, updateState, deliverState }) => {
                 Delivered
               </option>
               <option
-                value="Refund"
-                selected={data.status === "Refund" ? "selected" : ""}>
+                value="Refund initiated"
+                selected={data.status === "Refund initiated" ? "selected" : ""}>
                 Refund
               </option>
               <option
