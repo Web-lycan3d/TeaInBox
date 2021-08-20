@@ -1,21 +1,21 @@
 /** @format */
-
+import React from "react";
 import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
 } from "@material-ui/core";
 import { MdExpandLess } from "react-icons/md";
-import React, { useEffect, useState } from "react";
-import "./dropdown.styles.scss";
-import convertor from "number-to-words";
-import OrderdItems from "./OrderdItems/OrderdItems";
 
+import "./dropdown.styles.scss";
+
+import OrderdItems from "./OrderdItems/OrderdItems";
+import { motion } from "framer-motion";
 const Dropdown = ({ value, orStatus, st, updateState }) => {
   const total = value.orderTotal.reduce((a, b) => a + b, 0);
 
   return (
-    <div className="dropdown-conatiner">
+    <motion.div layout className="dropdown-conatiner">
       <div className="dropdown-contents">
         <Accordion className="dropdown-accord">
           <AccordionSummary expandIcon={<MdExpandLess />}>
@@ -55,7 +55,7 @@ const Dropdown = ({ value, orStatus, st, updateState }) => {
           </AccordionSummary>
           <AccordionDetails>
             {orStatus ? (
-              <div className="items-orderd-flex">
+              <motion.div layout className="items-orderd-flex">
                 {value?.orderdItems.map((item, index) =>
                   item.status === "Order Processing" ||
                   item.status === "In Transit" ? (
@@ -70,7 +70,7 @@ const Dropdown = ({ value, orStatus, st, updateState }) => {
                     ""
                   )
                 )}
-              </div>
+              </motion.div>
             ) : (
               <div className="items-orderd-flex">
                 {value?.orderdItems.map((item, index) =>
@@ -97,7 +97,7 @@ const Dropdown = ({ value, orStatus, st, updateState }) => {
           </AccordionDetails>
         </Accordion>
       </div>
-    </div>
+    </motion.div>
   );
 };
 export default Dropdown;

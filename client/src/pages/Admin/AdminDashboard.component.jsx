@@ -6,7 +6,7 @@ import "./AdminDashboard.styles.scss";
 import Dropdown from "../../components/dropdown/Dropdown";
 import axios from "axios";
 import apiUrl from "../../apiUrl/api";
-
+import { motion } from "framer-motion";
 const backendUrl = apiUrl();
 const doSomethingWith = (value) => {
   console.log(value);
@@ -120,9 +120,9 @@ const AdminDashboard = () => {
           </span>
         </div>
       </div>
-      <div className="admin-dashboard-content">
+      <motion.div layout className="admin-dashboard-content">
         {option ? Droplist(true) : Droplist(false)}
-      </div>
+      </motion.div>
     </div>
   );
 };
