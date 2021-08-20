@@ -41,10 +41,10 @@ const Dropdown = ({ value, orStatus, st, updateState }) => {
                 </div>
               </div>
 
-              <div className="dropdown-details-right">
+              {/* <div className="dropdown-details-right">
                 <h2>₹ {total}</h2>
                 <span>{convertor.toWords(total) + " only"}</span>
-              </div>
+              </div> */}
             </div>
           </AccordionSummary>
           <AccordionDetails>

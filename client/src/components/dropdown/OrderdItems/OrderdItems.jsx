@@ -26,14 +26,14 @@ const OrderdItems = ({ data, userid, updateState, deliverState }) => {
   return (
     <>
       <div className="dropdown-flow">
-        <div
+        {/* <div
           className={
             deliverState
               ? "status-color status-green"
               : "status-color status-red"
           }>
           {" "}
-        </div>
+        </div> */}
         <div className="details-address">
           <p>
             <BiPhone className="address-icons" /> {data.phoneNumber}

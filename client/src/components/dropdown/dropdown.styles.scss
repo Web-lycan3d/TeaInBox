@@ -5,12 +5,13 @@
 }
 .status-color {
   position: absolute;
-  right: 0.5rem;
-  top: 0.25rem;
+  right: 10%;
+  bottom: 50%;
   width: 10px;
   height: 10px;
   border-radius: 50%;
 }
+
 .status-red {
   background-color: rgb(247, 109, 84);
 }
