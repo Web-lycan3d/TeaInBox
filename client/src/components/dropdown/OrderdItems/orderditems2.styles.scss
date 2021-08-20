@@ -2,11 +2,12 @@
 
 .dropdown-flow {
   width: 95%;
-  height: 10rem;
+  min-height: 10rem;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 0;
+  padding: 2rem 0;
   margin: 0rem auto 0.9rem;
   border-bottom: 2px solid rgba(0, 0, 0, 0.363);
   color: rgba(233, 104, 84, 0.829);
@@ -23,7 +24,7 @@
       span {
         display: block;
         text-transform: capitalize;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.171);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.308);
       }
 
       span:last-child {

@@ -25,6 +25,7 @@ const AdminDashboard = () => {
     setupState(!upstate);
   };
   const fetchData = async () => {
+    console.log("S");
     try {
       const { data } = await axios.get(backendUrl + "/api/user/admin/userdata");
       data && setUserData(data);

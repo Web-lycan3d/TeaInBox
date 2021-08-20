@@ -5,8 +5,7 @@ import "./orderditems2.styles.scss";
 import { BiPhone, BiIdCard } from "react-icons/bi";
 import { AiOutlineMail } from "react-icons/ai";
 import axios from "axios";
-import Tooltip from "../../Tooltip/Tooltip";
-import { useHistory } from "react-router-dom";
+
 const OrderdItems = ({ data, userid, updateState, deliverState }) => {
   const [status, setStatus] = useState("Order Processing");
 
@@ -19,21 +18,18 @@ const OrderdItems = ({ data, userid, updateState, deliverState }) => {
       userid: userid,
     };
     const resp = await axios.post("/api/user/admin/update", Datalist);
-
     if (resp) updateState();
   };
 
   return (
     <>
       <div className="dropdown-flow">
-        <div
+        {/* <div
           className={
             deliverState
               ? "status-color status-green"
               : "status-color status-red"
-          }>
-          {" "}
-        </div>
+          }></div> */}
         <div className="details-address">
           <p>
             <BiPhone className="address-icons" /> {data.phoneNumber}

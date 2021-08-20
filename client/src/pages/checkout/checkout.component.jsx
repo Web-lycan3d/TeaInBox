@@ -146,8 +146,8 @@ const Checkout = ({ total }) => {
             <div className="order-done">
               <OrderDone />
               <motion.h3
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.8 }}>
                 Payment Done
@@ -166,8 +166,8 @@ const Checkout = ({ total }) => {
             <div className="order-done">
               <OrderError />
               <motion.h3
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.8 }}>
                 Payment failed
@@ -184,8 +184,8 @@ const Checkout = ({ total }) => {
           )}
           <div className="form-details">
             <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 1, ease: "easeIn" }}
               className="checkout-header">
@@ -204,8 +204,8 @@ const Checkout = ({ total }) => {
             </div>
             <form onSubmit={handleSubmit}>
               <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 1, ease: "easeIn", delay: 0.5 }}
                 className="address-left">
@@ -250,8 +250,8 @@ const Checkout = ({ total }) => {
                 <span className="errors">{mobileError && "not valid"}</span>
               </motion.div>
               <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 1, ease: "easeIn", delay: 0.5 }}
                 className="address-right">
@@ -283,14 +283,19 @@ const Checkout = ({ total }) => {
                   }
                 />
               </motion.div>
-              <div className="checkout-page-btn">
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 1, ease: "easeIn", delay: 0.5 }}
+                className="checkout-page-btn">
                 <button type="submit">Place order</button>
                 <Link
                   to="/cart"
                   style={{ textDecoration: "none", color: "black" }}>
                   <span> Cancel/Back </span>
                 </Link>
-              </div>
+              </motion.div>
             </form>
           </div>
         </div>

@@ -13,23 +13,29 @@ import OrderdItems from "./OrderdItems/OrderdItems";
 
 const Dropdown = ({ value, orStatus, st, updateState }) => {
   const total = value.orderTotal.reduce((a, b) => a + b, 0);
-  let [t, setT] = useState([]);
-
-  useEffect(() => {}, []);
 
   return (
     <div className="dropdown-conatiner">
       <div className="dropdown-contents">
-        {" "}
         <Accordion className="dropdown-accord">
           <AccordionSummary expandIcon={<MdExpandLess />}>
-            {" "}
-            {orStatus && (
+            {/* {orStatus && (
               <div
                 className={
                   st ? "status-color status-red" : "status-color status-green"
-                }>
-                {" "}
+                }></div>
+            )} */}
+            {orStatus && (
+              <div className="status-new-colours">
+                {value?.orderdItems.map((it, index) =>
+                  it.status === "Order Processing" ? (
+                    <span className="order-p"></span>
+                  ) : it.status === "In Transit" ? (
+                    <span className="order-t"></span>
+                  ) : (
+                    ""
+                  )
+                )}
               </div>
             )}
             <div className="dropdown-details">
@@ -41,17 +47,18 @@ const Dropdown = ({ value, orStatus, st, updateState }) => {
                 </div>
               </div>
 
-              <div className="dropdown-details-right">
+              {/* <div className="dropdown-details-right">
                 <h2>₹ {total}</h2>
                 <span>{convertor.toWords(total) + " only"}</span>
-              </div>
+              </div> */}
             </div>
           </AccordionSummary>
           <AccordionDetails>
             {orStatus ? (
               <div className="items-orderd-flex">
                 {value?.orderdItems.map((item, index) =>
-                  item.status === "Delivered" ? (
+                  item.status === "Order Processing" ||
+                  item.status === "In Transit" ? (
                     <OrderdItems
                       data={item}
                       key={index}
@@ -60,13 +67,7 @@ const Dropdown = ({ value, orStatus, st, updateState }) => {
                       updateState={updateState}
                     />
                   ) : (
-                    <OrderdItems
-                      data={item}
-                      key={index}
-                      userid={value.userId}
-                      deliverState={false}
-                      updateState={updateState}
-                    />
+                    ""
                   )
                 )}
               </div>
