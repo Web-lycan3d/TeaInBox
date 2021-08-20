@@ -1,35 +1,41 @@
 /** @format */
-
+import React from "react";
 import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
 } from "@material-ui/core";
 import { MdExpandLess } from "react-icons/md";
-import React, { useEffect, useState } from "react";
-import "./dropdown.styles.scss";
-import convertor from "number-to-words";
-import OrderdItems from "./OrderdItems/OrderdItems";
 
+import "./dropdown.styles.scss";
+
+import OrderdItems from "./OrderdItems/OrderdItems";
+import { motion } from "framer-motion";
 const Dropdown = ({ value, orStatus, st, updateState }) => {
   const total = value.orderTotal.reduce((a, b) => a + b, 0);
-  let [t, setT] = useState([]);
-
-  useEffect(() => {}, []);
 
   return (
-    <div className="dropdown-conatiner">
+    <motion.div layout className="dropdown-conatiner">
       <div className="dropdown-contents">
-        {" "}
         <Accordion className="dropdown-accord">
           <AccordionSummary expandIcon={<MdExpandLess />}>
-            {" "}
-            {orStatus && (
+            {/* {orStatus && (
               <div
                 className={
                   st ? "status-color status-red" : "status-color status-green"
-                }>
-                {" "}
+                }></div>
+            )} */}
+            {orStatus && (
+              <div className="status-new-colours">
+                {value?.orderdItems.map((it, index) =>
+                  it.status === "Order Processing" ? (
+                    <span className="order-p"></span>
+                  ) : it.status === "In Transit" ? (
+                    <span className="order-t"></span>
+                  ) : (
+                    ""
+                  )
+                )}
               </div>
             )}
             <div className="dropdown-details">
@@ -49,9 +55,10 @@ const Dropdown = ({ value, orStatus, st, updateState }) => {
           </AccordionSummary>
           <AccordionDetails>
             {orStatus ? (
-              <div className="items-orderd-flex">
+              <motion.div layout className="items-orderd-flex">
                 {value?.orderdItems.map((item, index) =>
-                  item.status === "Delivered" ? (
+                  item.status === "Order Processing" ||
+                  item.status === "In Transit" ? (
                     <OrderdItems
                       data={item}
                       key={index}
@@ -60,16 +67,10 @@ const Dropdown = ({ value, orStatus, st, updateState }) => {
                       updateState={updateState}
                     />
                   ) : (
-                    <OrderdItems
-                      data={item}
-                      key={index}
-                      userid={value.userId}
-                      deliverState={false}
-                      updateState={updateState}
-                    />
+                    ""
                   )
                 )}
-              </div>
+              </motion.div>
             ) : (
               <div className="items-orderd-flex">
                 {value?.orderdItems.map((item, index) =>
@@ -96,7 +97,7 @@ const Dropdown = ({ value, orStatus, st, updateState }) => {
           </AccordionDetails>
         </Accordion>
       </div>
-    </div>
+    </motion.div>
   );
 };
 export default Dropdown;

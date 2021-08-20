@@ -18,6 +18,26 @@
 .status-green {
   background-color: rgb(50, 209, 111);
 }
+.status-new-colours {
+  width: 10rem;
+  position: absolute;
+  right: 5%;
+  bottom: 30%;
+  transform: translateY(-50%);
+  span {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin: 0 0.25rem;
+    border-radius: 50%;
+  }
+  .order-p {
+    background-color: orange;
+  }
+  .order-t {
+    background-color: rgb(161, 18, 161);
+  }
+}
 .dropdown-accord {
   width: 98% !important;
   min-height: 8.5rem !important;
