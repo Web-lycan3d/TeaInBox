@@ -14,7 +14,7 @@
   position: relative;
 
   .dropdown-flow-left {
-    width: 40%;
+    width: 50%;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -112,5 +112,10 @@
       font-size: 1rem;
       margin-right: 0.2rem;
     }
+  }
+}
+@media screen and (max-width: 950px) {
+  .details-address p {
+    font-size: 0.76rem;
   }
 }
