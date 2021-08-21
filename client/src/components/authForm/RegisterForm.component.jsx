@@ -6,10 +6,10 @@ import { Link, useHistory } from "react-router-dom";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { motion } from "framer-motion";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { setAlert } from "../../redux/alert/alert.actions";
-import { registerUser } from "../../redux/user/user.actions";
+import { GoogleLoginAction, registerUser } from "../../redux/user/user.actions";
 
 import Form from "../form/form.component";
 import Input from "../inputField/Input.component";
@@ -17,7 +17,8 @@ import SubmitButton from "../formButton/SubmitButton.component";
 import "./loginForm.styles.scss";
 import axios from "axios";
 import apiUrl from "../../apiUrl/api";
-
+import GoogleLogin from "react-google-login";
+import { FcGoogle } from "react-icons/fc";
 const Schema = yup.object().shape({
   username: yup
     .string()
@@ -53,7 +54,7 @@ const RegisterForm = ({ setAlert, registerUser }) => {
   const [userOTP, setUserOTP] = useState();
   const [emailErrorState, setEmailErrorState] = useState(false);
   const [otpError, setOtpError] = useState(false);
-
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -97,7 +98,19 @@ const RegisterForm = ({ setAlert, registerUser }) => {
       setOtpError(true);
     }
   };
+  const handleGoogleSuccess = (res) => {
+    const googleUser = res.profileObj;
+    const token = res.tokenId;
 
+    const data = {
+      googleUser,
+      token,
+    };
+    dispatch(GoogleLoginAction(data));
+  };
+  const handleGoogleFailure = (res) => {
+    alert("Login Not Successful");
+  };
   return (
     <Fragment>
       <motion.h1
@@ -153,6 +166,21 @@ const RegisterForm = ({ setAlert, registerUser }) => {
               helperText={errors?.confirmPassword?.message}
             />
             <SubmitButton>Register</SubmitButton>
+            <GoogleLogin
+              clientId="1875614009-hrc1csc954jrjt2lsebdotnkp9ad7mol.apps.googleusercontent.com"
+              render={(renderProps) => (
+                <button
+                  className="google-login-btn"
+                  onClick={renderProps.onClick}
+                  disabled={renderProps.disabled}>
+                  <FcGoogle className="google-icon" />
+                  Sign up with Google
+                </button>
+              )}
+              onSuccess={handleGoogleSuccess}
+              onFailure={handleGoogleFailure}
+              cookiePolicy={"single_host_origin"}
+            />
           </Form>
         </motion.div>
       ) : (

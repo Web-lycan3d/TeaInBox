@@ -3,13 +3,17 @@
 import React, { Fragment, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, Redirect } from "react-router-dom";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { motion } from "framer-motion";
-
+import GoogleLogin from "react-google-login";
 import PropTypes from "prop-types";
-import { loginUser  , loginAdmin } from "../../redux/user/user.actions";
+import {
+  loginUser,
+  loginAdmin,
+  GoogleLoginAction,
+} from "../../redux/user/user.actions";
 
 import Form from "../form/form.component";
 import Input from "../inputField/Input.component";
@@ -17,6 +21,7 @@ import SubmitButton from "../formButton/SubmitButton.component";
 import "./loginForm.styles.scss";
 import apiUrl from "../../apiUrl/api";
 import axios from "axios";
+import { FcGoogle } from "react-icons/fc";
 
 const Schema = yup.object().shape({
   email: yup
@@ -27,10 +32,16 @@ const Schema = yup.object().shape({
 });
 const backendUrl = apiUrl();
 
-const LoginForm = ({ loginUser, isAuthenticated, message , isAdmin , loginAdmin }) => {
+const LoginForm = ({
+  loginUser,
+  isAuthenticated,
+  message,
+  isAdmin,
+  loginAdmin,
+}) => {
   const [userError, setUserError] = useState(false);
   const [passwError, setPasswError] = useState(false);
-
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -45,7 +56,7 @@ const LoginForm = ({ loginUser, isAuthenticated, message , isAdmin , loginAdmin 
 
     const resp = await axios.post(backendUrl + "/api/user/userauth", data);
 
-    if (email === 'singh004saab@gmail.com' && password === 'Abhi@123') {
+    if (email === "singh004saab@gmail.com" && password === "Abhi@123") {
       loginAdmin({ email, password });
     } else {
       if (!resp.data.userExists) {
@@ -64,10 +75,24 @@ const LoginForm = ({ loginUser, isAuthenticated, message , isAdmin , loginAdmin 
   if (isAdmin) {
     return <Redirect to="/admin_dashboard" />;
   }
-
+  // clientSecert  Yl0Q9PoG8aXSzGXtG1tx1C7w
+  //clientId 1875614009-hrc1csc954jrjt2lsebdotnkp9ad7mol.apps.googleusercontent.com
   if (isAuthenticated) {
     return <Redirect to="/" />;
   }
+  const handleGoogleSuccess = (res) => {
+    const googleUser = res.profileObj;
+    const token = res.tokenId;
+
+    const data = {
+      googleUser,
+      token,
+    };
+    dispatch(GoogleLoginAction(data));
+  };
+  const handleGoogleFailure = (res) => {
+    console.log(res);
+  };
   return (
     <Fragment>
       <motion.h1
@@ -113,6 +138,21 @@ const LoginForm = ({ loginUser, isAuthenticated, message , isAdmin , loginAdmin 
           />
           {passwError && <span className="error">Wrong password</span>}
           <SubmitButton>LOGIN</SubmitButton>
+          <GoogleLogin
+            clientId="1875614009-hrc1csc954jrjt2lsebdotnkp9ad7mol.apps.googleusercontent.com"
+            render={(renderProps) => (
+              <button
+                className="google-login-btn"
+                onClick={renderProps.onClick}
+                disabled={renderProps.disabled}>
+                <FcGoogle className="google-icon" />
+                Sign in with Google
+              </button>
+            )}
+            onSuccess={handleGoogleSuccess}
+            onFailure={handleGoogleFailure}
+            cookiePolicy={"single_host_origin"}
+          />
         </Form>
       </motion.div>
       <motion.span
@@ -138,7 +178,7 @@ LoginForm.propTypes = {
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.user.isAuthenticated,
-  isAdmin : state.user.isAdmin,
+  isAdmin: state.user.isAdmin,
 });
 
-export default connect(mapStateToProps, { loginUser ,  loginAdmin })(LoginForm);
+export default connect(mapStateToProps, { loginUser, loginAdmin })(LoginForm);

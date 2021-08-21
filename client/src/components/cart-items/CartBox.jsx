@@ -84,6 +84,8 @@ const CartBox = ({ items, count, orderId }) => {
                 <button className="order-no-cancel">
                   {items.status === "Cancelled" ? "" : "Cancelation in Process"}
                 </button>
+              ) : items.status === "Delivered" ? (
+                ""
               ) : (
                 <button
                   onClick={() => setCancelState(true)}
