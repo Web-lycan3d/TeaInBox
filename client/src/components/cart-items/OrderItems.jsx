@@ -5,8 +5,8 @@ import React from "react";
 const OrderItems = ({ total, item, status , address , city , pin }) => {
   return (
     <>
-      <span className="order-status">{status}</span>
-      <span className="order-delivery">{`${address},${city},${pin}`}</span>
+      {/* <span className="order-status">{status}</span>
+      <span className="order-delivery">{`${address},${city},${pin}`}</span> */}
       <div className="ordered-item-container">
         <div className="orderd-details">
           <h4>{item.name}</h4>

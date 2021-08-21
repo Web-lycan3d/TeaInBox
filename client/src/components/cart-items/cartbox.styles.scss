@@ -181,7 +181,6 @@
 .items-orderd {
   width: 100%;
   display: flex;
-  flex-direction: column;
   justify-content: flex-start;
   align-items: center;
 
@@ -269,13 +268,13 @@
   right: 1.1rem;
   font-size: 0.95rem;
 }
-.order-delivery {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  font-size: 0.95rem;
-  width: 30%; 
-}
+// .order-delivery {
+//   position: absolute;
+//   top: 50%;
+//   left: 50%;
+//   font-size: 0.95rem;
+//   width: 30%; 
+// }
 @media screen and (max-width: 1060px) {
   .box .item-details span:nth-child(2) {
     font-size: 0.7rem;
