@@ -89,7 +89,7 @@ const OrderdItems = ({ data, userid, updateState, deliverState }) => {
                 Cancelled
               </option>
             </select>
-            <span className="data-status">status:{data.status}</span>
+            <span className="data-status">Status:{" "}{data.status}</span>
             <button type="submit">Submit</button>{" "}
           </form>
         </div>

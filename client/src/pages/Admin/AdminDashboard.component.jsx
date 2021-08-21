@@ -34,22 +34,6 @@ const AdminDashboard = () => {
     }
   };
 
-  // async componentDidUpdate(prevProps, prevState, snapshot) {
-  //   console.log(prevProps);
-  //   console.log(prevState);
-  //   console.log(snapshot);
-  //   console.log(this.state);
-  //   if (userData === prevState.userData) {
-  //     try {
-  //       const { data } = await axios.get(
-  //         backendUrl + "/api/user/admin/userdata"
-  //       );
-  //       data && this.setState({ userData: data });
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }
-  // }
   const Droplist = (value) => {
     if (value) {
       return (

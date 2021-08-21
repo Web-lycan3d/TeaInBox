@@ -12,7 +12,6 @@ import "./dropdown.styles.scss";
 import OrderdItems from "./OrderdItems/OrderdItems";
 import { motion } from "framer-motion";
 const Dropdown = ({ value, orStatus, st, updateState }) => {
-  const total = value.orderTotal.reduce((a, b) => a + b, 0);
 
   return (
     <motion.div layout className="dropdown-conatiner">

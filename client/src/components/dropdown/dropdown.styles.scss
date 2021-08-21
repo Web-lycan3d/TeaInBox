@@ -11,6 +11,7 @@
   height: 10px;
   border-radius: 50%;
 }
+
 .status-red {
   background-color: rgb(247, 109, 84);
 }
@@ -88,6 +89,7 @@
         color: rgba(233, 104, 84, 0.808);
         font-size: 0.8rem;
         font-weight: 300;
+        text-transform: uppercase;
       }
     }
   }
