@@ -7,6 +7,7 @@ import { AiOutlineMail } from "react-icons/ai";
 import axios from "axios";
 
 const OrderdItems = ({ data, userid, updateState, deliverState }) => {
+  console.log(data)
   const [status, setStatus] = useState("Order Processing");
 
   const handleSubmit = async (e, id) => {
@@ -57,6 +58,7 @@ const OrderdItems = ({ data, userid, updateState, deliverState }) => {
           </div>
         </div>
         <div className="dropdown-flow-right">
+          <span>{`Cancel Status: ${data.orderCancel}`}</span>
           <form onSubmit={(e) => handleSubmit(e, data.orderId)}>
             <input type="hidden" value={data.orderId} name="orderid" />
             <select
