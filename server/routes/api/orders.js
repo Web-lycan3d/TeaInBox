@@ -7,6 +7,7 @@ const { v4: uuidv4 } = require("uuid");
 const auth = require("../../middleware/auth");
 const Order = require("../../models/Orders");
 const shortid = require("shortid");
+const User = require("../../models/User");
 
 router.post("/", auth, async (req, res) => {
   let { userOrder, total, userData } = req.body;
@@ -28,6 +29,7 @@ router.post("/", auth, async (req, res) => {
             "orders.orderdItems": {
               orderId: oid,
               status: "Order Processing",
+              orderCancel: false,
               email: userData.email,
               phoneNumber: userData.phoneNumber,
               Address: userData.address,
@@ -51,6 +53,7 @@ router.post("/", auth, async (req, res) => {
           $push: {
             orderdItems: {
               orderId: oid,
+              orderCancel: false,
               email: userData.email,
               phoneNumber: userData.phoneNumber,
               Address: userData.address,
@@ -79,6 +82,7 @@ router.post("/", auth, async (req, res) => {
                 orderId: oid2,
                 status: "Order Processing",
                 email: userData.email,
+                orderCancel: false,
                 phoneNumber: userData.phoneNumber,
                 Address: userData.address,
                 Pincode: userData.pincode,
@@ -100,6 +104,7 @@ router.post("/", auth, async (req, res) => {
         orderdItems: {
           orderId: oid2,
           email: userData.email,
+          orderCancel: false,
           phoneNumber: userData.phoneNumber,
           Address: userData.address,
           Pincode: userData.pincode,
@@ -116,5 +121,36 @@ router.post("/", auth, async (req, res) => {
   } catch (error) {
     return res.status(404).json({ message: "server error" });
   }
+});
+
+router.post("/cancel/:id", auth, async (req, res) => {
+  const { id } = req.user;
+  const updateUser = await User.findOneAndUpdate(
+    { _id: id },
+    {
+      $set: { "orders.orderdItems.$[e1].orderCancel": true },
+    },
+    {
+      arrayFilters: [
+        {
+          "e1.orderId": req.body.orderId,
+        },
+      ],
+    }
+  );
+  const updateOrder = await Order.findOneAndUpdate(
+    { userId: id },
+    {
+      $set: { "orderdItems.$[e1].orderCancel": true },
+    },
+    {
+      arrayFilters: [
+        {
+          "e1.orderId": req.body.orderId,
+        },
+      ],
+    }
+  );
+  res.json({ message: "updated" });
 });
 module.exports = router;
