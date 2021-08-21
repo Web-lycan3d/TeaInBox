@@ -181,7 +181,7 @@
 .items-orderd {
   width: 100%;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
 
   overflow-x: auto;
@@ -251,7 +251,6 @@
       font-weight: 400;
       margin-right: 0.2rem;
       color: rgb(241, 111, 111);
-      margin-left: 1rem;
     }
     .item-quantity {
       font-family: "Poppins", sans-serif;
@@ -275,6 +274,7 @@
 //   font-size: 0.95rem;
 //   width: 30%; 
 // }
+
 @media screen and (max-width: 1060px) {
   .box .item-details span:nth-child(2) {
     font-size: 0.7rem;

@@ -84,6 +84,8 @@ const CartBox = ({ items, count, orderId }) => {
                 <button className="order-no-cancel">
                   {items.status === "Cancelled" ? "" : "Cancellation in Process"}
                 </button>
+              ) : items.status === "Delivered" ? (
+                ""
               ) : (
                 <button
                   onClick={() => setCancelState(true)}
@@ -98,7 +100,7 @@ const CartBox = ({ items, count, orderId }) => {
           <div className="items-orderd">
             <h5>Items Ordered</h5>
             {items.orderdData?.map((orderdItem, index) => (
-              <OrderItems item={orderdItem} key={index} status={items.status} address={items.Address} city={items.City} pin={items.Pincode} />
+              <OrderItems item={orderdItem} key={index} status={items.status} />
             ))}
           </div>
         </AccordionDetails>

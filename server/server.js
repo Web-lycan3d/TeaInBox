@@ -20,6 +20,7 @@ app.use("/api/user", require("./routes/api/users"));
 app.use("/api/order", require("./routes/api/orders"));
 app.use("/api/auth", require("./routes/api/auth"));
 app.use("/api/razorpay", require("./routes/api/razorpay"));
+app.use("/api/google", require("./routes/api/googleAuth"));
 
 app.listen(PORT, () => {
   console.log(`Listening at port ${PORT}`);

@@ -10,6 +10,7 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
+  GOOGLE_AUTH,
 } from "./user.types";
 import { setAlert } from "../alert/alert.actions";
 import setAuthToken from "../../utils/setAuthToken";
@@ -131,7 +132,22 @@ export const loginAdmin =
       });
     }
   };
+export const GoogleLoginAction = (googleData) => async (dispatch) => {
+  try {
+    const { data } = await axios.post(
+      backendUrl + "/api/google/login",
+      googleData
+    );
 
+    dispatch({
+      type: GOOGLE_AUTH,
+      payload: data,
+    });
+    dispatch(loadUser());
+  } catch (error) {
+    console.log(error);
+  }
+};
 //logout / Clear Profile
 export const logoutUser = () => (dispatch) => {
   dispatch({ type: LOGOUT });
