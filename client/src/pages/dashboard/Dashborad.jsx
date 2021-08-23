@@ -5,7 +5,6 @@ import "./dash.styles.scss";
 
 import {
   Accordion,
-  AccordionDetails,
   AccordionSummary,
 } from "@material-ui/core";
 const Dashborad = () => {

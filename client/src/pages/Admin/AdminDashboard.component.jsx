@@ -1,19 +1,21 @@
 /** @format */
 
 import React, { useState, useEffect } from "react";
-import SearchBar from "material-ui-search-bar";
+// import SearchBar from "material-ui-search-bar";
 import "./AdminDashboard.styles.scss";
 import Dropdown from "../../components/dropdown/Dropdown";
 import axios from "axios";
 import apiUrl from "../../apiUrl/api";
 import { motion } from "framer-motion";
 const backendUrl = apiUrl();
-const doSomethingWith = (value) => {
-  console.log(value);
-};
+
+
+// const doSomethingWith = (value) => {
+//   console.log(value);
+// };
 
 const AdminDashboard = () => {
-  const [value, setValue] = useState("");
+  // const [value, setValue] = useState("");
   const [option, setOption] = useState(null);
   const [userData, setUserData] = useState([]);
   const [upstate, setupState] = useState(false);
@@ -73,14 +75,14 @@ const AdminDashboard = () => {
       <div className="admin-dsahboard-header">
         <div className="admin-dashboard-heading">
           <h1>Admin Dashboard</h1>{" "}
-          <div className="admin-dashboard-search">
+          {/* <div className="admin-dashboard-search">
             <SearchBar
               className="dashboard-search-bar"
               value={value}
               onChange={(newValue) => setValue(newValue)}
               onRequestSearch={() => doSomethingWith(value)}
             />
-          </div>
+          </div> */}
         </div>
 
         <div className="admin-dashboard-nav">

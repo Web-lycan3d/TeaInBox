@@ -30,6 +30,7 @@ export default (state = initialState, { type, payload }) => {
       };
     case REGISTER_SUCCESS:
     case LOGIN_SUCCESS:
+    case GOOGLE_AUTH:
       localStorage.setItem("token", payload.token);
       return {
         ...state,
@@ -46,15 +47,6 @@ export default (state = initialState, { type, payload }) => {
         isAuthenticated: true,
         loading: false,
         isAdmin: true,
-      };
-    case GOOGLE_AUTH:
-      localStorage.setItem("token", payload.token);
-      return {
-        ...state,
-        ...payload,
-        isAuthenticated: true,
-        loading: false,
-        isAdmin: false,
       };
     case REGISTER_FAIL:
     case AUTH_ERROR:

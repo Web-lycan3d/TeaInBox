@@ -40,9 +40,9 @@ const Orders = () => {
                 ))}
                 <div className="cancel-order">
                   <p>
-                    For any order that you wish to cancel, please send us a mail
-                    with to support@teainbox.in with your order id and contact
-                    details and we will process the order cancellation from our
+                    For any order that you wish to cancel, please drop us a mail
+                    with your order id and contact
+                    details to support@teainbox.in and we will process the order cancellation from our
                     end.
                   </p>
                 </div>

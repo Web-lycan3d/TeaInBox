@@ -80,7 +80,6 @@ const RegisterForm = ({ setAlert, registerUser }) => {
     } else {
       setEmailErrorState(false);
       const resp = await axios.post(backendUrl + "/api/user/verify", data);
-
       setOtpError(false);
       setRegisterState(true);
       setOtp(resp.data.otpValue);

@@ -55,8 +55,9 @@ const LoginForm = ({
     const { email, password } = data;
 
     const resp = await axios.post(backendUrl + "/api/user/userauth", data);
+    console.log(resp);
 
-    if (email === "singh004saab@gmail.com" && password === "Abhi@123") {
+    if (email === "rahul@teainbox.in" && password === "R@hul12sungh") {
       loginAdmin({ email, password });
     } else {
       if (!resp.data.userExists) {

@@ -9,7 +9,7 @@ AOS.init({
   once: true,
 });
 
-function CollectionItems({ imageUrl, linkUrl, history, name, homeState }) {
+function CollectionItems({ imageUrl, history, name, homeState }) {
   return (
     <div
       data-aos="fade-up"

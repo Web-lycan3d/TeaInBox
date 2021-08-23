@@ -110,3 +110,21 @@
     font-size: 12px;
   }
 }
+@media screen and (max-width: 1200px) {
+  .admin-dashboard-container {
+    width: 90%;
+    padding-top: 8%;
+  }
+  .admin-dashboard-container
+    .admin-dsahboard-header
+    .admin-dashboard-heading
+    h1 {
+    font-size: 22px;
+  }
+  .admin-dashboard-container
+    .admin-dsahboard-header
+    .admin-dashboard-nav
+    .admin-dashboard-navlist {
+    font-size: 14px;
+  }
+}

@@ -26,16 +26,19 @@ class Homepage extends Component {
           id: 1,
           linkUrl: "/tea",
           imageUrl: "https://i.ibb.co/wN0NYR5/lava1kgfront.jpg",
+          name: "Lava|1000gm"
         },
         {
           id: 2,
           linkUrl: "/tea",
           imageUrl: "https://i.ibb.co/LNKLvMc/man500front.jpg",
+          name: "Manorama|500gm"
         },
         {
           id: 3,
           linkUrl: "/tea",
           imageUrl: "https://i.ibb.co/HPyWsQh/madh1lkgfront.jpg",
+          name: "Madheshwar|1000gm"
         },
       ],
       width: window.innerWidth,
@@ -167,8 +170,8 @@ class Homepage extends Component {
           </Link>
         </div>
         <div className="collection-preview">
-          {this.state.bestSellers.map(({ id, ...otherProps }) => (
-            <CollectionItems key={id} {...otherProps} homeState={true} />
+          {this.state.bestSellers.map(({ id, name ,...otherProps }) => (
+            <CollectionItems key={id} {...otherProps} name={name} homeState={true} />
           ))}
         </div>
         <div className="img-container home-bottom-img">
