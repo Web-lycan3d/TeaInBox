@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 const router = express.Router();
 const config = require("config");
 const jwtSECRET = config.get("jwtSECRET");
+
 router.post("/login", async (req, res) => {
   const { googleUser, token } = req.body;
   const userExists = await User.findOne({ googleId: googleUser.googleId });

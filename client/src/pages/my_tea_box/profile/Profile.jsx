@@ -24,6 +24,7 @@ const Profile = () => {
   const handleClick = (favItem) => {
     favItem.map((data) => dispatch(addItemtoCart(data)));
   };
+ 
 
   return (
     <Fragment>
