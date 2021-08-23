@@ -26,7 +26,8 @@ const sgTransport = require("nodemailer-sendgrid-transport");
 const transport = nodemailer.createTransport(
   sgTransport({
     auth: {
-      api_key: "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",
+      api_key:
+        "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",
     },
   })
 );

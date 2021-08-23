@@ -8,7 +8,16 @@ const auth = require("../../middleware/auth");
 const Order = require("../../models/Orders");
 const shortid = require("shortid");
 const User = require("../../models/User");
-
+const nodemailer = require("nodemailer");
+const sgTransport = require("nodemailer-sendgrid-transport");
+const transport = nodemailer.createTransport(
+  sgTransport({
+    auth: {
+      api_key:
+        "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",
+    },
+  })
+);
 router.post("/", auth, async (req, res) => {
   let { userOrder, total, userData } = req.body;
 
@@ -66,6 +75,67 @@ router.post("/", auth, async (req, res) => {
           },
         }
       );
+      transport
+        .sendMail({
+          to: userData.email,
+          from: "support@teainbox.in",
+          subject: "Order successfull",
+          html: `<head>
+           <style type="text/css">
+            body, p, div {
+              font-family: Helvetica, Arial, sans-serif;
+              font-size: 14px;
+              display:flex;
+              flex-direction: column;
+              justify-content:flex-start;
+            }
+            p{
+                font-weight:600;
+                margin:0.6rem 0
+            }
+           h3{
+              font-size:30px;
+              font-weight:700;
+           }
+           h5{
+              font-size:30px;
+           }
+           span{
+            display:block;
+           font-size:12px;
+           font-weight:400;
+           }
+            center{
+              display:flex,
+              align-items: center;
+            }
+            img{
+              width:120px,
+              height:120px
+            }
+          </style>
+            <title></title>
+          </head>
+          <body>
+            <h3>Thank you for your purchase!</h3>
+            <img src="https://i.ibb.co/YBDh2Pv/Group-4445.png" alt="err" />
+            <p>View your order or Visit our website <a href="www.teainbox.in" >click here</a> </p>
+            <h5>Order summary</h5>
+            <p>OrderID: ${oid} </p>
+            <p>OrderTotal: ${total} </p>
+            <p>Customer information</p>
+            <p>OrderAddress: ${userData.username}</p>
+            <p>UserPhonenumber : ${userData.phoneNumber}</p>
+            <p>Shipping Details</p>
+            <p>Address: ${userData.address} |City: ${userData.city} |Pincode: ${userData.pincode}</p>
+          </body>`,
+        })
+        .then((res1) => {
+          console.log(res1, userData);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
       return res.status(200).json({ message: "updated" });
     } else {
       const oid2 = shortid.generate();
@@ -116,7 +186,72 @@ router.post("/", auth, async (req, res) => {
       };
       const order = new Order(orderDetails);
       await order.save();
+
+      transport
+        .sendMail({
+          to: userData.email,
+          from: "support@teainbox.in",
+          subject: "Order successfull",
+          html: `<head>
+          <style type="text/css">
+           body, p, div {
+             font-family: Helvetica, Arial, sans-serif;
+             font-size: 14px;
+             display:flex;
+             flex-direction: column;
+             justify-content:flex-start;
+           }
+           p{
+               font-weight:600;
+               margin:0.6rem 0
+           }
+          h3{
+             font-size:30px;
+             font-weight:700;
+          }
+          h5{
+            font-size:22px;
+          }
+          img{
+            width:120px,
+            height:120px
+          }
+          span{
+           display:block;
+          font-size:12px;
+          font-weight:400;
+          }
+           center{
+             display:flex,
+             align-items: center;
+           }
+         
+         </style>
+           <title></title>
+         </head>
+         <body>
+           <h3>Thank you for your purchase!</h3>
+           <img src="https://i.ibb.co/YBDh2Pv/Group-4445.png" alt="err" />
+           <p>View your order or Visit our website <a href="www.teainbox.in" >click here</a> </p>
+           <h5>Order summary</h5>
+           <p>OrderID: ${oid} </p>
+           <p>OrderTotal: ${total} </p>
+           <p>Customer information</p>
+           <p>OrderAddress: ${userData.username}</p>
+           <p>UserPhonenumber : ${userData.phoneNumber}</p>
+           <p>Shipping Details</p>
+           <p>Address: ${userData.address} | City: ${userData.city} | Pincode: ${userData.pincode}</p>
+         </body>   
+          `,
+        })
+        .then((res1) => {
+          console.log(res1);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
+
     return res.status(200).json({ message: "order created" });
   } catch (error) {
     return res.status(404).json({ message: "server error" });
