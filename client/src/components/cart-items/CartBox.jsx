@@ -57,7 +57,7 @@ const CartBox = ({ items, count, orderId }) => {
               <span>Item: {count}</span>
 
               <span>
-                orderd on: {items.orderDate} | OrderId : {items.orderId}
+                Ordered On: {items.orderDate} | OrderId : {items.orderId}
               </span>
 
               <p>
