@@ -8,8 +8,8 @@ import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import { MdExpandLess } from "react-icons/md";
-import { GiBackwardTime } from "react-icons/gi";
-import Tooltip from "@material-ui/core/Tooltip";
+// import { GiBackwardTime } from "react-icons/gi";
+// import Tooltip from "@material-ui/core/Tooltip";
 import axios from "axios";
 import apiUrl from "../../apiUrl/api";
 import { motion } from "framer-motion";
@@ -57,7 +57,7 @@ const CartBox = ({ items, count, orderId }) => {
               <span>Item: {count}</span>
 
               <span>
-                orderd on: {items.orderDate} | OrderId : {items.orderId}
+                Ordered On: {items.orderDate} | OrderId : {items.orderId}
               </span>
 
               <p>
@@ -82,7 +82,7 @@ const CartBox = ({ items, count, orderId }) => {
 
               {items.orderCancel ? (
                 <button className="order-no-cancel">
-                  {items.status === "Cancelled" ? "" : "Cancelation in Process"}
+                  {items.status === "Cancelled" ? "" : "Cancellation in Process"}
                 </button>
               ) : items.status === "Delivered" ? (
                 ""
@@ -100,7 +100,7 @@ const CartBox = ({ items, count, orderId }) => {
           <div className="items-orderd">
             <h5>Items Ordered</h5>
             {items.orderdData?.map((orderdItem, index) => (
-              <OrderItems item={orderdItem} key={index} status={items.status} />
+              <OrderItems item={orderdItem} key={index} />
             ))}
           </div>
         </AccordionDetails>

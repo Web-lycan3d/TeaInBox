@@ -111,7 +111,7 @@ const Checkout = ({ total }) => {
           if (resp.data.payment) {
             setPaymentStatus(true);
             setPaymentError(false);
-            const { data } = await axios.post(backendUrl + "/api/order", {
+            await axios.post(backendUrl + "/api/order", {
               userOrder: cartData,
               userData: userAddress,
               total: GrandTotal,

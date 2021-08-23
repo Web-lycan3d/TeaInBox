@@ -232,7 +232,11 @@
     }
   }
   .orderd-details {
-    margin-left: 0.7rem;
+    margin-left: 0.8rem;
+    margin-left: 0.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     h4 {
       font-size: 1.3rem;
       font-family: "Poppins", sans-serif;
@@ -263,6 +267,13 @@
   right: 1.1rem;
   font-size: 0.95rem;
 }
+// .order-delivery {
+//   position: absolute;
+//   top: 50%;
+//   left: 50%;
+//   font-size: 0.95rem;
+//   width: 30%; 
+// }
 
 @media screen and (max-width: 1060px) {
   .box .item-details span:nth-child(2) {
