@@ -239,6 +239,9 @@
     }
   }
 }
+.address-mob {
+  display: none;
+}
 @media screen and (max-width: 1250px) {
   .checkout-contents {
     padding: 0 2%;
@@ -247,7 +250,6 @@
     }
   }
 }
-
 @media screen and (max-width: 726px) {
   .checkout-contents {
     padding-top: 4rem;
@@ -323,5 +325,127 @@
     }
   }
 }
-// @media screen and (max-width: 500px) {
-// }
+@media screen and (max-width: 550px) {
+  .checkout-contents {
+    padding-top: 6rem;
+    .checkout-header {
+      display: none;
+      padding: 0.3rem 4% 0;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    h2 {
+      font-size: 1.5rem;
+      letter-spacing: 0.8px;
+    }
+    .price-details {
+      p {
+        font-size: 1.25rem;
+        .price-1 {
+          font-size: 1.25rem;
+        }
+      }
+      span {
+        font-size: 0.75rem;
+      }
+    }
+    .form-details {
+      height: 80vh;
+      overflow-y: auto;
+
+      form {
+        margin-top: 1rem;
+        height: 100%;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        label {
+          margin: 0.4rem 0;
+        }
+        input,
+        textarea {
+          display: block;
+          width: 100%;
+          margin: 0.2rem 0 0.5rem;
+        }
+      }
+    }
+    .address-left {
+      margin-top: 1.5rem;
+      width: 88%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .address-right {
+      width: 88%;
+      height: 100%;
+      .pincode {
+        margin-bottom: 1rem;
+      }
+    }
+
+    .checkout-page-btn {
+      display: none;
+      margin-top: 1rem;
+      margin-left: 14rem;
+      padding-left: 1rem;
+      padding-bottom: 1.5rem;
+
+      span {
+        font-size: 0.95rem;
+      }
+      button {
+        height: 2rem;
+      }
+    }
+  }
+  .address-mob {
+    width: 100%;
+    min-height: 5rem;
+    background: #f5f5f5;
+    position: fixed;
+    bottom: 0;
+    z-index: 1100;
+    padding: 0.6rem;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    h2 {
+      font-size: 1.5rem;
+      color: rgb(0, 0, 0);
+      margin: 0;
+    }
+    .price-details {
+      p {
+        font-size: 1rem;
+        margin: 0;
+        .price-1 {
+          font-size: 1rem;
+          margin: 0;
+        }
+      }
+      span {
+        margin: 0;
+        font-size: 0.7rem;
+      }
+    }
+    button {
+      border: 0;
+      margin-top: 0.2rem;
+      padding: 0.3rem 0;
+      background-color: #3a3939f1;
+      color: white;
+      font-size: 0.85rem;
+      transition: all 0.25s ease-in-out;
+      border: 2px solid rgba(0, 0, 0, 0);
+      &:hover {
+        border: 2px solid black;
+        background: transparent;
+        color: black;
+      }
+    }
+  }
+}

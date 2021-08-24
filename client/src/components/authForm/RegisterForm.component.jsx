@@ -97,7 +97,7 @@ const RegisterForm = ({ setAlert, registerUser }) => {
       setOtpError(true);
     }
   };
-  const handleGoogleSuccess = (res) => {
+  const handleGoogleSuccess = async (res) => {
     const googleUser = res.profileObj;
     const token = res.tokenId;
 
@@ -105,7 +105,9 @@ const RegisterForm = ({ setAlert, registerUser }) => {
       googleUser,
       token,
     };
-    dispatch(GoogleLoginAction(data));
+
+    await dispatch(GoogleLoginAction(data));
+    history.push("/");
   };
   const handleGoogleFailure = (res) => {
     alert("Login Not Successful");

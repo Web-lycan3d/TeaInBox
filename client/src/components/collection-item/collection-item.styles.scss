@@ -109,10 +109,19 @@
   //     }
   //   }
 }
+@media screen and (max-width: 1020px) {
+  .collection-item {
+    .image {
+      h3 {
+        font-size: 1.4rem;
+      }
+    }
+  }
+}
 @media screen and (max-width: 726px) {
   .collection-item {
     width: 100%;
-    margin: 1.5rem 0;
+    margin: 2rem 0;
     .image {
       width: 280%;
       height: 120%;
@@ -121,13 +130,16 @@
         width: 100%;
         object-fit: cover;
       }
+      h3 {
+        font-size: 1.4rem;
+      }
     }
   }
 }
 @media screen and (max-width: 550px) {
   .collection-item {
     width: 100%;
-    margin: 0.5rem 0;
+    margin: 1.25rem 0;
     .image {
       width: 300%;
       height: 100%;
@@ -135,6 +147,9 @@
       img {
         width: 100%;
         object-fit: cover;
+      }
+      h3 {
+        font-size: 1.15rem;
       }
     }
   }

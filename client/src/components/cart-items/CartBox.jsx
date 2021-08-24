@@ -43,7 +43,7 @@ const CartBox = ({ items, count, orderId }) => {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.8 }}
               className="order-cancel-request">
-              <h6>Once Canceled you cannot retain the order!</h6>
+              <h6>Once cancelled you cannot retain the order!</h6>
               <div className="cancel-btns">
                 <button onClick={() => handleOrderCancel(items)}>
                   Cancel Order
@@ -82,7 +82,9 @@ const CartBox = ({ items, count, orderId }) => {
 
               {items.orderCancel ? (
                 <button className="order-no-cancel">
-                  {items.status === "Cancelled" ? "" : "Cancellation in Process"}
+                  {items.status === "Cancelled"
+                    ? ""
+                    : "Cancellation in Process"}
                 </button>
               ) : items.status === "Delivered" ? (
                 ""

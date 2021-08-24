@@ -92,7 +92,7 @@ const LoginForm = ({
     dispatch(GoogleLoginAction(data));
   };
   const handleGoogleFailure = (res) => {
-    console.log(res);
+    alert("Please clear Cached images and files");
   };
   return (
     <Fragment>

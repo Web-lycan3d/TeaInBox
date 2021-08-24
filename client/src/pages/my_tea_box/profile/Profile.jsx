@@ -3,15 +3,15 @@
 import React, { useEffect, useState, Fragment } from "react";
 import Fav from "../../../components/Favourties/Fav";
 import UserNav from "../../../components/User_Navbar/UserNav.component";
-import { useSelector } from "react-redux";
+import { useSelector ,useDispatch} from "react-redux";
 import { motion } from "framer-motion";
 import LottieAnimation from "../../../components/lottie/LottieAnimation";
 import { Link } from "react-router-dom";
-// import { addItemtoCart } from "../../../redux/cart/cart.action";
+import { addItemtoCart } from "../../../redux/cart/cart.action";
 import "./porfile.styles.scss";
 
 const Profile = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const [favItem, setFavItem] = useState([]);
   const [userDetails, setUserDetails] = useState("");
   const userData = useSelector((initialState) => initialState);
@@ -21,9 +21,16 @@ const Profile = () => {
     userData && setFavItem(userData.fav?.fav);
   }, [userData]);
 
+ 
+  const handleClick = (favItem) => {
+    favItem.map((data) => dispatch(addItemtoCart(data)));
+  };
+ 
+ 
   // const handleClick = (favItem) => {
   //   favItem.map((data) => dispatch(addItemtoCart(data)));
   // };
+ 
 
   return (
     <Fragment>
