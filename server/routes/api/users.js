@@ -20,16 +20,18 @@ const Order = require("../../models/Orders");
 const nodemailer = require("nodemailer");
 const sgTransport = require("nodemailer-sendgrid-transport");
 
-// @route    GET api/user/register
-// @Desc     Register a user
-//@access    Public
 const transport = nodemailer.createTransport(
   sgTransport({
     auth: {
-      api_key: "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",
+      api_key: "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",
     },
   })
 );
+
+
+// @route    GET api/user/verify
+// @Desc     Verify the email
+//@access    Public
 router.post("/verify", (req, res) => {
   const { email } = req.body;
 
@@ -79,24 +81,14 @@ router.post("/verify", (req, res) => {
     .catch((err) => {
       console.log(err);
     });
-
-  // login(email);
-  // async function login(emailId) {
-  //   try {
-  //     const res2 = await Auth(emailId, "TeaInBox");
-  //     console.log(res2);
-  //     if (res2.success) {
-  //       return res.status(200).json({ otpValue: res2.OTP });
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-
-  // }
 });
 
+
+// @route    POST api/user/checkuser
+// @Desc     Check User exists
+//@access    Public
 router.post("/checkuser", async (req, res) => {
-  const { username, email, password } = req.body;
+  const { email } = req.body;
   let user = await User.findOne({ email });
 
   if (user) {
@@ -108,6 +100,9 @@ router.post("/checkuser", async (req, res) => {
   }
 });
 
+// @route    POST api/user/userayuth
+// @Desc     User Verification
+//@access    Public
 router.post("/userauth", async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -126,6 +121,10 @@ router.post("/userauth", async (req, res) => {
   }
 });
 
+
+// @route    GET api/user/register
+// @Desc     Register the user
+//@access    Public
 router.post(
   "/register",
   [
@@ -233,6 +232,10 @@ router.post(
   }
 );
 
+
+// @route    PATCH api/user/cart
+// @Desc    Add item to cart
+//@access    Private
 router.patch("/cart", auth, async (req, res) => {
   const { id, name, price, imageURL } = req.body;
   let cartitem = {
@@ -253,32 +256,10 @@ router.patch("/cart", auth, async (req, res) => {
     res.status(400).send("error");
   }
 });
-// router.post("/order", auth, async (req, res) => {
-//   console.log(req.user);
-//   let { userOrder, price } = req.body;
 
-//   try {
-//     userOrder.map(async (order, index) => {
-//       const orders = new Order({
-//         orderTotal: price,
-//         orderId: index + 1,
-//         orderName: order.itemName,
-//         userId: req.user.id,
-//       });
-
-//       await orders.save();
-//     });
-//     const updateOrder = await User.findByIdAndUpdate(
-//       { _id: req.user.id },
-//       { $push: { orders: userOrder } },
-//       { new: true }
-//     );
-//     console.log(updateOrder);
-//   } catch (error) {
-//     res.status(400).send("error");
-//   }
-// });
-
+// @route    PATCH api/user/fav
+// @Desc     Add Favorites to the database
+//@access    Private
 router.patch("/fav", auth, async (req, res) => {
   const { id } = req.user;
 
@@ -291,6 +272,9 @@ router.patch("/fav", auth, async (req, res) => {
   res.json(updateFav);
 });
 
+// @route    PATCH api/user/unfav
+// @Desc     Remove Favorites to the database
+//@access    Private
 router.patch("/unfav", auth, async (req, res) => {
   const { id } = req.user;
 
@@ -303,16 +287,27 @@ router.patch("/unfav", auth, async (req, res) => {
   res.json(removeFav);
 });
 
+// @route    GET api/user/data
+// @Desc     Get User Details of a particular user
+//@access    Private
 router.get("/data", auth, async (req, res) => {
   const { id } = req.user;
   const userDetails = await User.findOne({ _id: id });
   res.json(userDetails);
 });
 
+
+// @route    PATCH api/user/admin/userdata
+// @Desc     Get all the Orders
+//@access    Private
 router.get("/admin/userdata", auth, async (req, res) => {
   const data = await Order.find({});
   res.json(data);
 });
+
+// @route    PATCH api/user/admin/update
+// @Desc     Upadte the status of the user 
+//@access    Private
 router.post("/admin/update", auth, async (req, res) => {
   const { id } = req.user;
 
