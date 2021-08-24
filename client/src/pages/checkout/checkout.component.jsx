@@ -192,7 +192,7 @@ const Checkout = ({ total }) => {
               </motion.button>
             </div>
           )}
-          <div className="address-mob">
+          {/* <div className="address-mob">
             <h2>Order Details</h2>
             <div className="price-details">
               <p>
@@ -201,7 +201,7 @@ const Checkout = ({ total }) => {
               <span>{convertor.toWords(GrandTotal) + " rupees only"} </span>
             </div>
             <button onClick={handleSubmit}>Pay now</button>
-          </div>
+          </div> */}
           <div className="form-details">
             <motion.div
               initial={{ opacity: 0 }}
