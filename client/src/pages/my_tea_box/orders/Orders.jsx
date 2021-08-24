@@ -51,7 +51,7 @@ const Orders = () => {
               <>
                 <div className="no-orders">
                   <LottieAnimation w={200} h={100} />
-                  <p>No orders found</p>
+                  <p>No orders found </p>
 
                   <Link to="/tea">
                     <button>Order Now</button>

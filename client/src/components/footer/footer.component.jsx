@@ -3,8 +3,8 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import {
-  AiFillFacebook,
   AiFillInstagram,
+  AiFillLinkedin,
   AiFillTwitterCircle,
   AiFillYoutube,
 } from "react-icons/ai";
@@ -20,16 +20,30 @@ const Footer = () => {
             Get in touch with us!
           </Link>
           <div className="social-media-links">
-            <Link>
-              <AiFillFacebook className="social-icons" />
+            <Link
+              to={{ pathname: "https://www.linkedin.com/company/tea-in-box" }}
+              target="_blank">
+              <AiFillLinkedin className="social-icons" />
             </Link>
-            <Link>
+            <Link
+              to={{
+                pathname:
+                  "https://instagram.com/tea_in_box?utm_medium=copy_link",
+              }}
+              target="_blank">
               <AiFillInstagram className="social-icons" />
             </Link>
-            <Link>
+            <Link
+              to={{ pathname: "https://twitter.com/Tea_In_Box?s=20" }}
+              target="_blank">
               <AiFillTwitterCircle className="social-icons" />
             </Link>
-            <Link>
+            <Link
+              to={{
+                pathname:
+                  "https://www.youtube.com/channel/UC7irvlP4349vXdNJUmD6N4w",
+              }}
+              target="_blank">
               <AiFillYoutube className="social-icons" />
             </Link>
           </div>

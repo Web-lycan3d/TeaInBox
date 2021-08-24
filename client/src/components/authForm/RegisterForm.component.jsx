@@ -105,8 +105,8 @@ const RegisterForm = ({ setAlert, registerUser }) => {
       googleUser,
       token,
     };
-     console.log(data);
-   await dispatch(GoogleLoginAction(data)); 
+
+    await dispatch(GoogleLoginAction(data));
     history.push("/");
   };
   const handleGoogleFailure = (res) => {

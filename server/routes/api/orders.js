@@ -124,14 +124,14 @@ router.post("/", auth, async (req, res) => {
             <p>OrderID: ${oid} </p>
             <p>OrderTotal: ${total} </p>
             <p>Customer information</p>
-            <p>OrderAddress: ${userData.username}</p>
+            <p>Username: ${userData.username}</p>
             <p>UserPhonenumber : ${userData.phoneNumber}</p>
             <p>Shipping Details</p>
-            <p>Address: ${userData.address} |City: ${userData.city} |Pincode: ${userData.pincode}</p>
+            <p>Address: ${userData.address} | City: ${userData.city} | Pincode: ${userData.pincode}</p>
           </body>`,
         })
         .then((res1) => {
-          console.log(res1, userData);
+          console.log(res1);
         })
         .catch((err) => {
           console.log(err);
@@ -193,56 +193,54 @@ router.post("/", auth, async (req, res) => {
           from: "support@teainbox.in",
           subject: "Order successfull",
           html: `<head>
-          <style type="text/css">
-           body, p, div {
-             font-family: Helvetica, Arial, sans-serif;
-             font-size: 14px;
-             display:flex;
-             flex-direction: column;
-             justify-content:flex-start;
+           <style type="text/css">
+            body, p, div {
+              font-family: Helvetica, Arial, sans-serif;
+              font-size: 14px;
+              display:flex;
+              flex-direction: column;
+              justify-content:flex-start;
+            }
+            p{
+                font-weight:600;
+                margin:0.6rem 0
+            }
+           h3{
+              font-size:30px;
+              font-weight:700;
            }
-           p{
-               font-weight:600;
-               margin:0.6rem 0
+           h5{
+              font-size:30px;
            }
-          h3{
-             font-size:30px;
-             font-weight:700;
-          }
-          h5{
-            font-size:22px;
-          }
-          img{
-            width:120px,
-            height:120px
-          }
-          span{
-           display:block;
-          font-size:12px;
-          font-weight:400;
-          }
-           center{
-             display:flex,
-             align-items: center;
+           span{
+            display:block;
+           font-size:12px;
+           font-weight:400;
            }
-         
-         </style>
-           <title></title>
-         </head>
-         <body>
-           <h3>Thank you for your purchase!</h3>
-           <img src="https://i.ibb.co/YBDh2Pv/Group-4445.png" alt="err" />
-           <p>View your order or Visit our website <a href="www.teainbox.in" >click here</a> </p>
-           <h5>Order summary</h5>
-           <p>OrderID: ${oid} </p>
-           <p>OrderTotal: ${total} </p>
-           <p>Customer information</p>
-           <p>OrderAddress: ${userData.username}</p>
-           <p>UserPhonenumber : ${userData.phoneNumber}</p>
-           <p>Shipping Details</p>
-           <p>Address: ${userData.address} | City: ${userData.city} | Pincode: ${userData.pincode}</p>
-         </body>   
-          `,
+            center{
+              display:flex,
+              align-items: center;
+            }
+            img{
+              width:120px,
+              height:120px
+            }
+          </style>
+            <title></title>
+          </head>
+          <body>
+            <h3>Thank you for your purchase!</h3>
+            <img src="https://i.ibb.co/YBDh2Pv/Group-4445.png" alt="err" />
+            <p>View your order or Visit our website <a href="www.teainbox.in" >click here</a> </p>
+            <h5>Order summary</h5>
+            <p>OrderID: ${oid2} </p>
+            <p>OrderTotal: ${total} </p>
+            <p>Customer information</p>
+            <p>Username: ${userData.username}</p>
+            <p>UserPhonenumber : ${userData.phoneNumber}</p>
+            <p>Shipping Details</p>
+            <p>Address: ${userData.address} | City: ${userData.city} | Pincode: ${userData.pincode}</p>
+          </body>`,
         })
         .then((res1) => {
           console.log(res1);

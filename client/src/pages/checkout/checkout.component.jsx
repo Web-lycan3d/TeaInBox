@@ -48,6 +48,7 @@ const Checkout = ({ total }) => {
   const [addressError, setAddressError] = useState(null);
   const [paymentStatus, setPaymentStatus] = useState(null);
   const [paymentError, setPaymentError] = useState(null);
+  const [pinError, setPinError] = useState(null);
   const [cartData, setCartData] = useState([]);
 
   const cartDetails = useSelector((state) => state?.cart);
@@ -61,23 +62,32 @@ const Checkout = ({ total }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const picodeRegex = new RegExp("^[1-9][0-9]{5}$");
+    const verifyPin = picodeRegex.test(userAddress.pincode);
 
     const exp = validator.isMobilePhone(userAddress.phoneNumber, ["en-IN"]);
     // checkingaddressLength
-    if (userAddress.address.length < 10) {
-      setAddressError(true);
-    } else {
-      // checkingvalidNumber
-      setAddressError(false);
-      if (exp) {
-        setMobileError(false);
-        userAddress.username = userData?.username;
-        userAddress.email = userData?.email;
 
-        handleRazorPay();
+    if (exp) {
+      setMobileError(false);
+      if (userAddress.address.length < 10) {
+        setAddressError(true);
       } else {
-        setMobileError(true);
+        setAddressError(false);
+        if (!verifyPin) {
+          setPinError(true);
+        } else {
+          setPinError(false);
+
+          userAddress.username = userData?.username;
+          userAddress.email = userData?.email;
+
+          handleRazorPay();
+        }
+        // checkingvalidNumber
       }
+    } else {
+      setMobileError(true);
     }
   };
 
@@ -182,6 +192,16 @@ const Checkout = ({ total }) => {
               </motion.button>
             </div>
           )}
+          <div className="address-mob">
+            <h2>Order Details</h2>
+            <div className="price-details">
+              <p>
+                Total: <span className="price-1">₹{GrandTotal}</span>
+              </p>
+              <span>{convertor.toWords(GrandTotal) + " rupees only"} </span>
+            </div>
+            <button onClick={handleSubmit}>Pay now</button>
+          </div>
           <div className="form-details">
             <motion.div
               initial={{ opacity: 0 }}
@@ -202,7 +222,7 @@ const Checkout = ({ total }) => {
                 <path d="M0,32L1440,256L1440,320L0,320Z"></path>
               </svg>
             </div>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} id="mobform">
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -282,6 +302,9 @@ const Checkout = ({ total }) => {
                     setUserAddress({ ...userAddress, pincode: e.target.value })
                   }
                 />
+                <span className="errors pincode">
+                  {pinError && "Not a valid Pincode"}
+                </span>
               </motion.div>
               <motion.div
                 initial={{ opacity: 0 }}

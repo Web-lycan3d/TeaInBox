@@ -2,7 +2,7 @@
 
 import React from "react";
 
-const OrderItems = ({item}) => {
+const OrderItems = ({ item }) => {
   return (
     <>
       {/* <span className="order-status">{status}</span>
