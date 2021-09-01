@@ -8,7 +8,22 @@
   font-family: "Poppins", sans-serif;
   margin-bottom: 0;
 }
-
+.login-error {
+  text-align: left;
+  p {
+    font-family: "Poppins", sans-serif;
+    font-size: 0.7rem;
+    font-weight: 400;
+  }
+  p:nth-child(2) {
+    font-size: 0.65rem;
+  }
+  p:nth-child(3) {
+    font-weight: 600;
+    color: #eb7171;
+    font-size: 0.62rem;
+  }
+}
 .link {
   font-size: 1rem;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -114,6 +129,9 @@
 }
 @media screen and (max-width: 1060px) {
   .title {
+    text-align: center;
+  }
+  .login-error {
     text-align: center;
   }
 }

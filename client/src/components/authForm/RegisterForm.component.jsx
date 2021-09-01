@@ -54,6 +54,8 @@ const RegisterForm = ({ setAlert, registerUser }) => {
   const [userOTP, setUserOTP] = useState();
   const [emailErrorState, setEmailErrorState] = useState(false);
   const [otpError, setOtpError] = useState(false);
+  const [loginErrors, setLoginErrors] = useState(false);
+
   const dispatch = useDispatch();
   const {
     register,
@@ -108,10 +110,13 @@ const RegisterForm = ({ setAlert, registerUser }) => {
 
     await dispatch(GoogleLoginAction(data));
     history.push("/");
+
+    loginErrors && setLoginErrors(false);
   };
   const handleGoogleFailure = (res) => {
-    alert("Login Not Successful");
+    setLoginErrors(true);
   };
+
   return (
     <Fragment>
       <motion.h1
@@ -122,7 +127,15 @@ const RegisterForm = ({ setAlert, registerUser }) => {
         className="title">
         {registerState ? "" : "Register"}
       </motion.h1>
-
+      {loginErrors ? (
+        <div className="login-error">
+          <p>Please clear your Cached images and files</p>
+          <p>{"Settings -> Privacy&Security -> clear browsing data"}</p>
+          <p>{"(if you closed the google popup please Ignore this message)"}</p>
+        </div>
+      ) : (
+        ""
+      )}
       {!registerState ? (
         <motion.div
           initial={{ opacity: 0 }}

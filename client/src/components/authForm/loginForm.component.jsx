@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link, Redirect } from "react-router-dom";
 import { connect, useDispatch } from "react-redux";
@@ -41,6 +41,7 @@ const LoginForm = ({
 }) => {
   const [userError, setUserError] = useState(false);
   const [passwError, setPasswError] = useState(false);
+  const [loginErrors, setLoginErrors] = useState(false);
   const dispatch = useDispatch();
   const {
     register,
@@ -55,9 +56,11 @@ const LoginForm = ({
     const { email, password } = data;
 
     const resp = await axios.post(backendUrl + "/api/user/userauth", data);
-    console.log(resp);
 
-    if (email === "rahul@teainbox.in" && password === "R@hul12sungh") {
+    if (
+      email === process.env.REACT_APP_EMAIL_ID &&
+      password === process.env.REACT_APP_EMAIL_PASS
+    ) {
       loginAdmin({ email, password });
     } else {
       if (!resp.data.userExists) {
@@ -81,6 +84,7 @@ const LoginForm = ({
   if (isAuthenticated) {
     return <Redirect to="/" />;
   }
+
   const handleGoogleSuccess = (res) => {
     const googleUser = res.profileObj;
     const token = res.tokenId;
@@ -90,10 +94,13 @@ const LoginForm = ({
       token,
     };
     dispatch(GoogleLoginAction(data));
+
+    loginErrors && setLoginErrors(false);
   };
   const handleGoogleFailure = (res) => {
-    alert("Please clear Cached images and files");
+    setLoginErrors(true);
   };
+
   return (
     <Fragment>
       <motion.h1
@@ -113,6 +120,15 @@ const LoginForm = ({
           className="error-login-cart">
           Login first
         </motion.span>
+      )}
+      {loginErrors ? (
+        <div className="login-error">
+          <p>Please clear your Cached images and files</p>
+          <p>{"Settings -> Privacy&Security -> clear browsing data"}</p>
+          <p>{"(if you closed the google popup please Ignore this message)"}</p>
+        </div>
+      ) : (
+        ""
       )}
       <motion.div
         initial={{ opacity: 0 }}
