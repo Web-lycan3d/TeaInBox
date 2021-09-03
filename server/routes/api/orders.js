@@ -10,6 +10,10 @@ const shortid = require("shortid");
 const User = require("../../models/User");
 const nodemailer = require("nodemailer");
 const sgTransport = require("nodemailer-sendgrid-transport");
+const api_key = process.env.API_KEY_MAIL;
+const domain = process.env.DOMAIN_MAIN;
+const mailgun = require("mailgun-js")({ apiKey: api_key, domain: domain });
+
 const transport = nodemailer.createTransport(
   sgTransport({
     auth: {
@@ -74,12 +78,11 @@ router.post("/", auth, async (req, res) => {
           },
         }
       );
-      transport
-        .sendMail({
-          to: userData.email,
-          from: "support@teainbox.in",
-          subject: "Order successfull",
-          html: `<head>
+      const data1 = {
+        from: "support@teainbox.in",
+        to: userData.email,
+        subject: "Order successfull",
+        html: `<head>
            <style type="text/css">
             body, p, div {
               font-family: Helvetica, Arial, sans-serif;
@@ -128,14 +131,15 @@ router.post("/", auth, async (req, res) => {
             <p>Shipping Details</p>
             <p>Address: ${userData.address} | City: ${userData.city} | Pincode: ${userData.pincode}</p>
           </body>`,
-        })
-        .then((res1) => {
-          console.log(res1);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-      return res.status(200).json({ message: "updated" });
+      };
+
+      mailgun.messages().send(data1, function (error, body) {
+        if (body) {
+          res.status(200).json({ message: "order created" });
+        } else {
+          console.log(error, "S");
+        }
+      });
     } else {
       const oid2 = shortid.generate();
       const updateUserOrders = await User.findByIdAndUpdate(
@@ -185,71 +189,69 @@ router.post("/", auth, async (req, res) => {
       };
       const order = new Order(orderDetails);
       await order.save();
-
-      transport
-        .sendMail({
-          to: userData.email,
-          from: "support@teainbox.in",
-          subject: "Order successfull",
-          html: `<head>
-           <style type="text/css">
-            body, p, div {
-              font-family: Helvetica, Arial, sans-serif;
-              font-size: 14px;
-              display:flex;
-              flex-direction: column;
-              justify-content:flex-start;
+      const data = {
+        from: "support@teainbox.in",
+        to: userData.email,
+        subject: "Order successfull",
+        html: `<head>
+            <style type="text/css">
+             body, p, div {
+                font-family: Helvetica, Arial, sans-serif;
+               font-size: 14px;
+                display:flex;
+               flex-direction: column;
+               justify-content:flex-start;
+             }
+             p{
+                 font-weight:600;
+                 margin:0.6rem 0
+             }
+              h3{
+               font-size:30px;
+               font-weight:700;
+             }
+            h5{
+                font-size:30px;
+             }
+            span{
+              display:block;
+              font-size:12px;
+              font-weight:400;
             }
-            p{
-                font-weight:600;
-                margin:0.6rem 0
-            }
-           h3{
-              font-size:30px;
-              font-weight:700;
-           }
-           h5{
-              font-size:30px;
-           }
-           span{
-            display:block;
-           font-size:12px;
-           font-weight:400;
-           }
             center{
               display:flex,
               align-items: center;
             }
-            img{
-              width:120px,
-              height:120px
-            }
-          </style>
-            <title></title>
-          </head>
-          <body>
-            <h3>Thank you for your purchase!</h3>
-            <img src="https://i.ibb.co/YBDh2Pv/Group-4445.png" alt="err" />
-            <p>View your order or Visit our website <a href="www.teainbox.in" >click here</a> </p>
-            <h5>Order summary</h5>
-            <p>OrderID: ${oid2} </p>
-            <p>OrderTotal: ${total} </p>
-            <p>Customer information</p>
-            <p>Username: ${userData.username}</p>
-            <p>UserPhonenumber : ${userData.phoneNumber}</p>
-            <p>Shipping Details</p>
-            <p>Address: ${userData.address} | City: ${userData.city} | Pincode: ${userData.pincode}</p>
+             img{
+               width:120px,
+               height:120px
+             }
+           </style>
+             <title></title>
+           </head>
+           <body>
+             <h3>Thank you for your purchase!</h3>
+             <img src="https://i.ibb.co/YBDh2Pv/Group-4445.png" alt="err" />
+             <p>View your order or Visit our website <a href="www.teainbox.in" >click here</a> </p>
+             <h5>Order summary</h5>
+             <p>OrderID: ${oid2} </p>
+             <p>OrderTotal: ${total} </p>
+              <p>Customer information</p>
+              <p>Username: ${userData.username}</p>
+             <p>UserPhonenumber : ${userData.phoneNumber}</p>
+             <p>Shipping Details</p>
+              <p>Address: ${userData.address} | City: ${userData.city} | Pincode: ${userData.pincode}</p>
           </body>`,
-        })
-        .then((res1) => {
-          console.log(res1);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+      };
 
-    return res.status(200).json({ message: "order created" });
+      mailgun.messages().send(data, function (error, body) {
+        if (body) {
+          res.status(200).json({ message: "order created" });
+        } else {
+          console.log(error);
+        }
+      });
+    }
   } catch (error) {
     return res.status(404).json({ message: "server error" });
   }

@@ -19,15 +19,17 @@ const Order = require("../../models/Orders");
 
 const nodemailer = require("nodemailer");
 const sgTransport = require("nodemailer-sendgrid-transport");
+const api_key = process.env.API_KEY_MAIL;
+const domain = process.env.DOMAIN_MAIN;
+const mailgun = require("mailgun-js")({ apiKey: api_key, domain: domain });
 
 const transport = nodemailer.createTransport(
   sgTransport({
     auth: {
-      api_key: "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",
+      api_key: "",
     },
   })
 );
-
 
 // @route    GET api/user/verify
 // @Desc     Verify the email
@@ -41,48 +43,82 @@ router.post("/verify", (req, res) => {
     upperCase: false,
     specialChars: false,
   });
-
-  transport
-    .sendMail({
-      to: email,
-      from: "support@teainbox.in",
-      subject: "User verification for TeaInBox",
-      html: `<head>
-      <style type="text/css">
-        body, p, div {
+  const data = {
+    from: "support@teainbox.in",
+    to: email,
+    subject: "User verification for TeaInBox",
+    html: `<head>
+          <style type="text/css">
+         body, p, div {
           font-family: Helvetica, Arial, sans-serif;
           font-size: 14px;
-        }
-        center{
-          display:flex,
-          align-items: center;
-        }
+         }
+  
        img{
-         width:120px,
-         height:120px
-       }
-      </style>
-      <title></title>
-    </head>
-    <body>
-    <center>
-      <img src="https://i.ibb.co/YBDh2Pv/Group-4445.png" alt="err" />
-      <p>
-        The verification code is: <strong>${otp}</strong>
-      </p>
-    </center>
-    </body>`,
-    })
-    .then((res1) => {
-      if (res1.message === "success") {
-        return res.status(200).json({ otpValue: otp });
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
+           width:90px;
+         height:90px;
+           object-fit:contain;
+        }
+       </style>
+       <title></title>
+       </head>
+        <body>
+     <div class="center">
+       <img src="https://i.ibb.co/YBDh2Pv/Group-4445.png" alt="err" />
+        <p>
+         The verification code for TeaInBox is: <strong>${otp}</strong>
+       </p>
+        </div>
+      </body>`,
+  };
 
+  mailgun.messages().send(data, function (error, body) {
+    if (body) {
+      res.status(200).json({ otpValue: otp });
+    } else {
+      console.log(error);
+    }
+  });
+  // transport
+  //   .sendMail({
+  //     to: email,
+  //     from: "support@teainbox.in",
+  //     subject: "User verification for TeaInBox",
+  //     html: `<head>
+  //     <style type="text/css">
+  //       body, p, div {
+  //         font-family: Helvetica, Arial, sans-serif;
+  //         font-size: 14px;
+  //       }
+  //       center{
+  //         display:flex,
+  //         align-items: center;
+  //       }
+  //      img{
+  //        width:120px,
+  //        height:120px
+  //      }
+  //     </style>
+  //     <title></title>
+  //   </head>
+  //   <body>
+  //   <center>
+  //     <img src="https://i.ibb.co/YBDh2Pv/Group-4445.png" alt="err" />
+  //     <p>
+  //       The verification code is: <strong>${otp}</strong>
+  //     </p>
+  //   </center>
+  //   </body>`,
+  //   })
+  //   .then((res1) => {
+  //     if (res1.message === "success") {
+  //       return res.status(200).json({ otpValue: otp });
+  //     }
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
+});
 
 // @route    POST api/user/checkuser
 // @Desc     Check User exists
@@ -120,7 +156,6 @@ router.post("/userauth", async (req, res) => {
     res.status(500).send("server error");
   }
 });
-
 
 // @route    GET api/user/register
 // @Desc     Register the user
@@ -232,7 +267,6 @@ router.post(
   }
 );
 
-
 // @route    PATCH api/user/cart
 // @Desc    Add item to cart
 //@access    Private
@@ -296,7 +330,6 @@ router.get("/data", auth, async (req, res) => {
   res.json(userDetails);
 });
 
-
 // @route    PATCH api/user/admin/userdata
 // @Desc     Get all the Orders
 //@access    Private
@@ -306,7 +339,7 @@ router.get("/admin/userdata", auth, async (req, res) => {
 });
 
 // @route    PATCH api/user/admin/update
-// @Desc     Upadte the status of the user 
+// @Desc     Upadte the status of the user
 //@access    Private
 router.post("/admin/update", auth, async (req, res) => {
   const { id } = req.user;
