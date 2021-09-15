@@ -36,13 +36,13 @@ const transport = nodemailer.createTransport(
 //@access    Public
 router.post("/verify", (req, res) => {
   const { email } = req.body;
-
   const otp = otpGenerator.generate(6, {
     digits: true,
     alphabets: false,
     upperCase: false,
     specialChars: false,
   });
+  console.log(otp)
   const data = {
     from: "support@teainbox.in",
     to: email,
@@ -72,7 +72,7 @@ router.post("/verify", (req, res) => {
       </body>`,
   };
 
-  mailgun.messages().send(data, function (error, body) {
+  mailgun.messages().send(data, (body, error) => {
     if (body) {
       res.status(200).json({ otpValue: otp });
     } else {

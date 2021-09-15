@@ -100,7 +100,8 @@ const SingleProduct = () => {
               {/* <img src={product.imageURL} alt="error" /> */}
               <ReactCarousel
                 img1={product.imageURL}
-                img2={product.imageURLExtra}
+                img2={product.imageURLExtra1}
+                img3={product.imageURLExtra2}
               />
             </motion.div>
           </motion.div>
@@ -130,7 +131,7 @@ const SingleProduct = () => {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 1 }}>
                 The exhilarating freshness and soothing goodness of green tea
-                blended with abundant nourishment & antioxidants - carefully
+                blended with abundant nourishment and antioxidants - carefully
                 handpicked by our experts for you. A rare connoisseur's delight
                 to awaken your senses with the mystical and enchanting taste -
                 one sip at a time.

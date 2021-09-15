@@ -147,9 +147,9 @@
     }
   }
 }
-@media (max-width: 768px) {
+@media (max-width: 766px) {
   .checkout-page {
-    width: 90%;
+    width: 95%;
     height: 70vh;
     display: flex;
     flex-direction: column;
@@ -180,7 +180,7 @@
   .cart-items-page {
     width: 100%;
     height: 35vh;
-    padding-right: 0.5rem;
+    padding-right: 0rem;
     overflow-y: auto;
     overflow-x: hidden;
     scrollbar-color: #888 #f1f1f1;

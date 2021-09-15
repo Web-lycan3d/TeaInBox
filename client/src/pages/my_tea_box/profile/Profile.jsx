@@ -39,7 +39,7 @@ const Profile = () => {
         <div className="profile-contents">
           <div className="profile-left">
             <img src={userDetails?.avatar} className="avatar-img" alt="error" />
-            <span>Name:{userDetails?.username}</span>
+            <span>{userDetails?.username}</span>
             <span>{userDetails?.email}</span>
           </div>
           <div className="profile-right">
@@ -50,9 +50,9 @@ const Profile = () => {
               ) : (
                 <div className="no-items">
                   <LottieAnimation w={300} h={120} />
-                  <p>No Favourite items Found</p>
+                  <p>No Favourite Items Found</p>
                   <Link to="/" style={{ textDecoration: "none" }}>
-                    <span>Add now</span>
+                    <span>Add Now</span>
                   </Link>
                 </div>
               )}
